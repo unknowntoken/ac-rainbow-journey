@@ -39,13 +39,14 @@ public class Game {
         int indexCounter = 0;
 
         while (true) {
-            obstacleCounter++;
+
             player.update();
 
-            if(obstacleCounter > 0){
+            if(obstacleCounter == 0){
                 obstacles[indexCounter].show();
                 indexCounter++;
             }
+            obstacleCounter++;
 
             if(obstacleCounter >700){
                 obstacles[indexCounter].show();
