@@ -13,6 +13,7 @@ public class Game {
     private Obstacle[] obstacles;
 
 
+
     private void init() {
         obstacles = new Obstacle [MAX_OBSTACLES];
 
@@ -21,8 +22,8 @@ public class Game {
         player = new Player();
         KeyboardListener keyboardHandler = new KeyboardListener(player);
         for (int i = 0; i< obstacles.length;i++){
-            obstacles[i] = new Obstacle (player,ObstacleImage.getRandomType());
-        }
+           obstacles[i] = new Obstacle (player,ObstacleImage.getRandomType());
+       }
         
     }
 
@@ -30,8 +31,11 @@ public class Game {
         init();
         while (true) {
             player.update();
+            for( Obstacle obstacle : obstacles){
+                obstacle.update();
+            }
             try {
-                Thread.sleep(1);
+                Thread.sleep(5);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

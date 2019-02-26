@@ -3,26 +3,29 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Obstacle {
-    private int positionX;
-    private int positionY;
+    private int countMov;
     private Player player;
     private Picture picture;
 
 
-    public Obstacle (Player player, ObstacleImage type){
+    public Obstacle(Player player, ObstacleImage type) {
         this.player = player;
-
-        picture = new Picture(40,40,type.getResource());
+        countMov = 0;
+        picture = new Picture(700, 500, ObstacleImage.JS.getResource());
         picture.draw();
     }
 
-    public void update (){
+    public void update() {
 
-        checkCollision ();
+
+        picture.translate(-1, 0);
+
+
+        //checkCollision ();
 
     }
 
-    private void checkCollision (){
+    private void checkCollision() {
 
     }
 
