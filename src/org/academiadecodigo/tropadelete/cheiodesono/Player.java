@@ -3,7 +3,7 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player {
-    private static final int JUMP_HEIGHT = 40;
+    private static final int JUMP_HEIGHT = 80;
 
     private int health;
 
