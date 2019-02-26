@@ -14,7 +14,7 @@ public class Player {
 
     public Player() {
         animationCounter = 0;
-        picture = new Picture(40, 400, "resources/mario.png");
+        picture = new Picture(40, 400, "resources/hero_chara_mario_pc.png");
         picture.draw();
         this.jumping = false;
     }

@@ -6,18 +6,20 @@ public class Obstacle {
 
     private Player player;
     private Picture picture;
+    private boolean show;
 
 
     public Obstacle(Player player, ObstacleImage type) {
         this.player = player;
         picture = new Picture(700, 500, ObstacleImage.JS.getResource());
-        picture.draw();
+        show = false;
     }
 
     public void update() {
 
-        picture.translate(-1, 0);
-
+        if  (show) {
+            picture.translate(-1, 0);
+        }
         //checkCollision ();
     }
 
@@ -35,5 +37,11 @@ public class Obstacle {
 
     public void hide(){
         picture.delete();
+        show = false;
+    }
+
+    public void show(){
+        picture.draw();
+        show = true;
     }
 }
