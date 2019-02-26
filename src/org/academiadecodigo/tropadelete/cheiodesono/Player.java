@@ -10,7 +10,6 @@ public class Player {
     private boolean jumping;
     private boolean down;
     private int animationCounter;
-
     private Picture picture;
 
 

@@ -40,8 +40,7 @@ public class Game {
     }
 
 
-
-    // public boolean checkColision(){
+   // public boolean checkColision(){
 
 
     //}

@@ -9,6 +9,7 @@ public class Obstacle {
     private Picture picture;
 
 
+
     public Obstacle (Player player, ObstacleImage type){
         this.player = player;
 
