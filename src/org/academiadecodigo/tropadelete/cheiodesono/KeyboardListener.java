@@ -1,4 +1,4 @@
-package org.academiadecodigo.tropadelete;
+package org.academiadecodigo.tropadelete.cheiodesono;
 
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
@@ -6,8 +6,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 
 public class KeyboardListener implements KeyboardHandler {
-
-
+    private KeyboardEvent space;
     private Player player;
 
     public KeyboardListener(Player player){
@@ -15,7 +14,7 @@ public class KeyboardListener implements KeyboardHandler {
 
         Keyboard keyboard = new Keyboard(this);
 
-        KeyboardEvent space = new KeyboardEvent();
+        space = new KeyboardEvent();
         space.setKey(KeyboardEvent.KEY_SPACE);
         space.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(space);
@@ -25,18 +24,11 @@ public class KeyboardListener implements KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-        System.out.println("a");
-
         switch (keyboardEvent.getKey()) {
-
             case KeyboardEvent.KEY_SPACE:
-                System.out.println("here");
                 player.jump();
                 break;
-
         }
-
-
     }
 
     @Override
