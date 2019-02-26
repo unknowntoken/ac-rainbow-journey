@@ -19,6 +19,7 @@ public class Game {
 
         rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
         rectangle.draw();
+
         player = new Player();
         KeyboardListener keyboardHandler = new KeyboardListener(player);
         for (int i = 0; i< obstacles.length;i++){
@@ -33,6 +34,9 @@ public class Game {
             player.update();
             for( Obstacle obstacle : obstacles){
                 obstacle.update();
+                if(checkOutOfBounds(obstacle.getX(),obstacle.getY())){
+                    obstacle.hide();
+                }
             }
             try {
                 Thread.sleep(5);
@@ -44,7 +48,16 @@ public class Game {
     }
 
 
+    public boolean checkOutOfBounds(int x, int y){
 
+        if( x < PADDING){
+
+            return true;
+        }
+
+        return false;
+
+    }
     // public boolean checkColision(){
 
 

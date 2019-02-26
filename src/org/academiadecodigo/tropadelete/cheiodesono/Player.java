@@ -6,11 +6,9 @@ public class Player {
     private static final int JUMP_HEIGHT = 100;
 
     private int health;
-
     private boolean jumping;
     private boolean down;
     private int animationCounter;
-
     private Picture picture;
 
 
@@ -48,7 +46,10 @@ public class Player {
         jumping = true;
     }
 
-    public void hit() {
+    public void hit(int damage) {
+
+        health -= damage;
+
 
     }
 }
