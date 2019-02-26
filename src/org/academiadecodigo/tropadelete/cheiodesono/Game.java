@@ -14,16 +14,15 @@ public class Game {
 
 
     private void init() {
-        obstacles = new Obstacles [MAX_OBSTACLES];
-
-        for (int i = 0; i< obstacles.length ();i++){
-            obstacles = new Obstacle ();
-        }
+        obstacles = new Obstacle [MAX_OBSTACLES];
 
         rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
         rectangle.draw();
         player = new Player();
         KeyboardListener keyboardHandler = new KeyboardListener(player);
+        for (int i = 0; i< obstacles.length;i++){
+            obstacles[i] = new Obstacle (player,ObstacleImage.getRandomType());
+        }
         
     }
 
