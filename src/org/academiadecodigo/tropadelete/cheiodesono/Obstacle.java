@@ -11,7 +11,7 @@ public class Obstacle {
 
     public Obstacle(Player player, ObstacleImage type) {
         this.player = player;
-        picture = new Picture(700, 500, ObstacleImage.JS.getResource());
+        picture = new Picture(700, 500, ObstacleImage.getRandomType().getResource());
         show = false;
     }
 
