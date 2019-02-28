@@ -1,6 +1,5 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Obstacle {
@@ -11,6 +10,7 @@ public class Obstacle {
     private boolean show;
     private static final int START_X = 800;
     private static final int START_Y = 500;
+    private static final int HIT_POINTS = 10;
 
 
     public Obstacle(Player player) {
@@ -30,17 +30,17 @@ public class Obstacle {
     public void update() {
         if (show) {
             picture.translate(-1, 0);
-            //System.out.println(picture.getX() +";" + player.getX());
-            //System.out.println(picture.getY() +";" + player.getY());
-            boolean collided = Collision.collide(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight(),
-                    player.getX(), player.getY(), player.getWidth(), player.getHeight());
 
         }
-        //checkCollision ();
+        if (hitPlayer()){
+            player.hit(HIT_POINTS);
+            hide();
+        }
     }
 
-    private void checkCollision() {
-
+    private boolean hitPlayer() {
+        return Collision.collide(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight(),
+                player.getX(), player.getY(), player.getWidth(), player.getHeight());
     }
 
     public int getX() {

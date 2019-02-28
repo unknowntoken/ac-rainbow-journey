@@ -1,13 +1,9 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
-import java.awt.*;
-
 public class Player {
-    private static final int JUMP_HEIGHT = 100;
-    private static final int HANG_TIME = 100;
+    private static final int JUMP_HEIGHT = 200;
 
     private int health;
     private boolean jumping;
@@ -23,6 +19,7 @@ public class Player {
         animationCounter = 0;
         health = 100;
         down = true;
+
 
         picture = new Picture(40, 40, "resources/images/hero_chara_mario_pc.png");
         picture.draw();
@@ -56,14 +53,15 @@ public class Player {
         picture.translate(0, -1);
         if (animationCounter >= JUMP_HEIGHT) {
             animationCounter =0;
+            jumping = false;
             down = true;
-            jumping= false;
         }
     }
 
     public void jump() {
         if (!down) {
             jumping = true;
+            down = true;
         }
     }
 

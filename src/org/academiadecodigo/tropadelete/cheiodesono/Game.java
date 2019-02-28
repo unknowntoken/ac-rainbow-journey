@@ -33,7 +33,7 @@ public class Game {
 
 
         player = new Player();
-        KeyboardListener keyboardHandler = new KeyboardListener(player);
+        new KeyboardListener(player);
         for (int i = 0; i < obstacles.length; i++) {
             obstacles[i] = new Obstacle(player);
         }
