@@ -11,14 +11,20 @@ public class Obstacle {
 
     public Obstacle(Player player, ObstacleImage type) {
         this.player = player;
-        picture = new Picture(700, 500, ObstacleImage.getRandomType().getResource());
+        picture = new Picture(700, 450, ObstacleImage.getRandomType().getResource());
         show = false;
     }
 
     public void update() {
-        if  (show) {
+        if (show) {
             picture.translate(-1, 0);
-            Collision.collide(picture.getX(),picture.getY(),picture.getWidth(),picture.getHeight())
+            //System.out.println(picture.getX() +";" + player.getX());
+            //System.out.println(picture.getY() +";" + player.getY());
+            boolean collided = Collision.collide(picture.getX(), picture.getY(), picture.getWidth(), picture.getHeight(),
+                    player.getX(), player.getY(), player.getWidth(), picture.getHeight());
+            if (collided) {
+                System.out.println("Collision: ");
+            }
         }
         //checkCollision ();
     }
@@ -27,20 +33,20 @@ public class Obstacle {
 
     }
 
-    public int getX(){
+    public int getX() {
         return picture.getX();
     }
 
-    public int getY(){
+    public int getY() {
         return picture.getY();
     }
 
-    public void hide(){
+    public void hide() {
         picture.delete();
         show = false;
     }
 
-    public void show(){
+    public void show() {
         picture.draw();
         show = true;
     }

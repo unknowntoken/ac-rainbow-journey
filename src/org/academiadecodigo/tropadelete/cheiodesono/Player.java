@@ -14,7 +14,7 @@ public class Player {
 
     public Player() {
         animationCounter = 0;
-        picture = new Picture(40, 400, "resources/hero_chara_mario_pc.png");
+        picture = new Picture(40, 400, "resources/images/hero_chara_mario_pc.png");
         picture.draw();
         this.jumping = false;
     }
@@ -51,5 +51,19 @@ public class Player {
         health -= damage;
 
 
+    }
+
+    public int getWidth (){
+        return picture.getWidth();
+    }
+    public int getHeight (){
+        return picture.getHeight();
+    }
+
+    public int getX (){
+        return picture.getX();
+    }
+    public int getY(){
+        return picture.getY();
     }
 }

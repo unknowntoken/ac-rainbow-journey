@@ -11,7 +11,7 @@ public class Game {
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static final int MAX_OBSTACLES = 5;
+    private static final int MAX_OBSTACLES = 1;
     private Obstacle[] obstacles;
 
 
@@ -46,9 +46,10 @@ public class Game {
                 obstacles[indexCounter].show();
                 indexCounter++;
             }
+
             obstacleCounter++;
 
-            if(obstacleCounter >700){
+            if(obstacleCounter >100){
                 obstacles[indexCounter].show();
                 indexCounter++;
                 obstacleCounter =0;
@@ -76,7 +77,6 @@ public class Game {
     public boolean checkOutOfBounds(int x, int y){
 
         if( x < PADDING){
-
             return true;
         }
 
