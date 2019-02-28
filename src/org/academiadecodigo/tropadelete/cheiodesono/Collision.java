@@ -9,15 +9,10 @@ public abstract class Collision {
 
     public static boolean collide(int xPosA, int yPosA, int widthA, int heightA,int xPosB, int yPosB, int widthB, int heightB){
 
-        /*leftx.delete();
-        leftx = new Line(xPosB,0,xPosB,600);
-        leftx.draw();
-*/
-        //bottom
+        /*bottom
         leftx.delete();
         leftx = new Line(xPosB-100,(yPosB+heightB),(xPosB+widthB+100),(yPosB+heightB));
-        leftx.draw();
-
+        leftx.draw();*/
 
         return
                 //Checking for intersection of rectangle A with rectangleB
