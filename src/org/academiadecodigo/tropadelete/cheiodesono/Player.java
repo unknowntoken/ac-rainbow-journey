@@ -3,10 +3,9 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 public class Player {
-    private static final int JUMP_HEIGHT = 80;
+    private static final int JUMP_HEIGHT = 100;
 
     private int health;
-
     private boolean jumping;
     private boolean down;
     private int animationCounter;
@@ -15,7 +14,7 @@ public class Player {
 
     public Player() {
         animationCounter = 0;
-        picture = new Picture(50, 400, "resources/mario.png");
+        picture = new Picture(40, 400, "resources/hero_chara_mario_pc.png");
         picture.draw();
         this.jumping = false;
     }
@@ -47,7 +46,10 @@ public class Player {
         jumping = true;
     }
 
-    public void hit() {
+    public void hit(int damage) {
+
+        health -= damage;
+
 
     }
 }

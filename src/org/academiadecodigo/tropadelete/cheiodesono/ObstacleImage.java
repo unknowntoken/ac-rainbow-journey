@@ -1,7 +1,7 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
 public enum ObstacleImage {
-    //GOD ("resources/god.jpg"),
+    GOD ("resources/Gody.png"),
     JS ("resources/js.png");
 
     private String resource;
