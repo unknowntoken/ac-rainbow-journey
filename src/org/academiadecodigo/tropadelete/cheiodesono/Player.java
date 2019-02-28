@@ -5,6 +5,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 public class Player {
     private static final int JUMP_HEIGHT = 200;
 
+
     private int health;
     private boolean jumping;
     private boolean down;
@@ -15,12 +16,11 @@ public class Player {
     private int lowestY;
 
 
+
     public Player() {
         animationCounter = 0;
         health = 100;
         down = true;
-
-
         picture = new Picture(40, 40, "resources/images/hero_chara_mario_pc.png");
         picture.draw();
         this.jumping = false;

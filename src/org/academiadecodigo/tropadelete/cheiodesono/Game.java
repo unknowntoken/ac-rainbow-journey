@@ -49,7 +49,6 @@ public class Game {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
 
-
         while (true) {
             System.out.println("Frame number:" + frameCounter);
             if (gameOver()){
