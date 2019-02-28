@@ -20,9 +20,6 @@ public class Obstacle {
 
     public void reset() {
         picture = new Picture(START_X, START_Y, ObstacleImage.getRandomType().getResource());
-
-        //picture2 = new Picture(START_X, START_Y, ObstacleImage.getRandomType().getResource());
-        //picture = new Rectangle(START_X, START_Y, picture2.getWidth(),picture2.getHeight());
         show = false;
 
     }
@@ -35,6 +32,7 @@ public class Obstacle {
         if (hitPlayer()){
             player.hit(HIT_POINTS);
             hide();
+            reset();
         }
     }
 

@@ -41,7 +41,7 @@ public class KeyboardListener implements KeyboardHandler {
                 break;
 
             case KEY_A:
-                player.moveLeft ();
+                player.moveLeft();
                 break;
             case KEY_D:
                 player.moveRight();
@@ -52,9 +52,9 @@ public class KeyboardListener implements KeyboardHandler {
 
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
-        switch (keyboardEvent.getKey()){
+        switch (keyboardEvent.getKey()) {
             case KEY_SPACE:
-                //player.releaseJump();
+                player.releaseJump();
                 break;
         }
 

@@ -76,11 +76,18 @@ public class Player {
 
     public void releaseJump() {
         jumping = false;
+        down = true;
         animationCounter =0;
     }
-
+    public void setHealth (int health){
+        this.health = health;
+    }
+    public int getHealth (){
+        return health;
+    }
     public void hit(int damage) {
         health -= damage;
+        System.out.println("Health: " + health);
     }
 
     public int getWidth() {
