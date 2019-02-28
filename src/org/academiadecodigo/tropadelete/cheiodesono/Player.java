@@ -11,10 +11,9 @@ public class Player {
 
     private int health;
     private boolean jumping;
-    private boolean hangtime;
+    private boolean down;
 
 
-    private int hangTimeCounter;
     private int animationCounter;
     private Picture picture;
     private int lowestY;
@@ -23,8 +22,7 @@ public class Player {
     public Player() {
         animationCounter = 0;
         health = 100;
-        hangtime = false;
-        hangTimeCounter = 0;
+        down = true;
 
         picture = new Picture(40, 40, "resources/images/hero_chara_mario_pc.png");
         picture.draw();
@@ -35,7 +33,6 @@ public class Player {
     }
 
     public void update() {
-        System.out.println("lowest Y:" + lowestY);
 
         if (jumping) {
             jumpAction();
@@ -44,23 +41,30 @@ public class Player {
 
         if (picture.getY() < lowestY) {
             picture.translate(0, 1);
+            return;
         }
+        down = false;
     }
 
     private void jumpAction() {
         //System.out.println("Y:" + picture.getY());
         //System.out.println("counter" + animationCounter);
 
+
+
         animationCounter++;
         picture.translate(0, -1);
         if (animationCounter >= JUMP_HEIGHT) {
-            jumping = false;
             animationCounter =0;
+            down = true;
+            jumping= false;
         }
     }
 
     public void jump() {
-        jumping = true;
+        if (!down) {
+            jumping = true;
+        }
     }
 
     public void moveLeft() {
