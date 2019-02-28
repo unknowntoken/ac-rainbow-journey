@@ -7,12 +7,19 @@ public class Obstacle {
     private Player player;
     private Picture picture;
     private boolean show;
+    private static final int START_X = 800;
+    private static final int START_Y = 450;
 
 
     public Obstacle(Player player, ObstacleImage type) {
         this.player = player;
-        picture = new Picture(700, 450, ObstacleImage.getRandomType().getResource());
+        reset();
+    }
+
+    public void reset() {
+        picture = new Picture(START_X, START_Y, ObstacleImage.getRandomType().getResource());
         show = false;
+
     }
 
     public void update() {

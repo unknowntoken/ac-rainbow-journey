@@ -11,59 +11,53 @@ public class Game {
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static final int MAX_OBSTACLES = 1;
+    private static final int MAX_OBSTACLES = 4;
     private Obstacle[] obstacles;
 
+    private int frameCounter;
+    private int obstacleIndex;  //Index of the obstacle next to be spawned
 
 
     private void init() {
-        obstacles = new Obstacle [MAX_OBSTACLES];
+        obstacleIndex = 0;
+        frameCounter = 0;
+
+        obstacles = new Obstacle[MAX_OBSTACLES];
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
-        picture = new Picture(PADDING,PADDING,"resources/Sky-Wallpapers.jpg");
+        picture = new Picture(PADDING, PADDING, "resources/Sky-Wallpapers.jpg");
         picture.draw();
 
 
         player = new Player();
         KeyboardListener keyboardHandler = new KeyboardListener(player);
-        for (int i = 0; i< obstacles.length;i++){
-           obstacles[i] = new Obstacle (player,ObstacleImage.getRandomType());
-       }
-        
+        for (int i = 0; i < obstacles.length; i++) {
+            obstacles[i] = new Obstacle(player, ObstacleImage.getRandomType());
+        }
+
     }
 
     public void start() {
         init();
-        int obstacleCounter = 0;
-        int indexCounter = 0;
+
 
         while (true) {
-
+            //System.out.println("Frame number:" + frameCounter);
+            frameCounter++;
             player.update();
+            manageObstacles();
 
-            if(obstacleCounter == 0){
-                obstacles[indexCounter].show();
-                indexCounter++;
-            }
 
-            obstacleCounter++;
-
-            if(obstacleCounter >100){
-                obstacles[indexCounter].show();
-                indexCounter++;
-                obstacleCounter =0;
-            }
-            if(indexCounter == obstacles.length){
-                indexCounter =0;
-            }
-            for( Obstacle obstacle : obstacles){
+            for (Obstacle obstacle : obstacles) {
 
                 obstacle.update();
-                if(checkOutOfBounds(obstacle.getX(),obstacle.getY())){
+                if (checkOutOfBounds(obstacle.getX(), obstacle.getY())) {
                     obstacle.hide();
+                    obstacle.reset();
                 }
             }
+
             try {
                 Thread.sleep(5);
             } catch (InterruptedException e) {
@@ -73,10 +67,24 @@ public class Game {
 
     }
 
+    public void manageObstacles() {
+        if (frameCounter == 0) {
+            obstacles[obstacleIndex].show();
+            obstacleIndex++;
+        }
 
-    public boolean checkOutOfBounds(int x, int y){
 
-        if( x < PADDING){
+        if (frameCounter % 300 == 0) {
+            //System.out.println("Showing new obstacle");
+            obstacles[obstacleIndex%obstacles.length].show();
+            obstacleIndex++;
+        }
+
+    }
+
+    public boolean checkOutOfBounds(int x, int y) {
+
+        if (x < PADDING) {
             return true;
         }
 
