@@ -9,7 +9,7 @@ public class Player {
     private int health;
     private boolean jumping;
     private boolean down;
-
+    private PlayerJumpSound jumpSound;
 
     private int animationCounter;
     private Picture picture;
@@ -24,6 +24,7 @@ public class Player {
         picture = new Picture(40, 40, "resources/images/hero_chara_mario_pc.png");
         picture.draw();
         this.jumping = false;
+        jumpSound = new PlayerJumpSound("resources/sounds/386691__laurenmg95__player-jump.wav");
 
         lowestY = 600 - (picture.getY() + picture.getHeight());
 
@@ -60,6 +61,7 @@ public class Player {
 
     public void jump() {
         if (!down) {
+            jumpSound.play(true);
             jumping = true;
             down = true;
         }
@@ -77,6 +79,7 @@ public class Player {
     public void releaseJump() {
         jumping = false;
         down = true;
+        jumpSound.close();
         animationCounter =0;
     }
     public void setHealth (int health){
