@@ -30,7 +30,7 @@ public class PowerUp {
 
         }
         if (hitPlayer()){
-            player.addHealth(HEALTH_POINTS);
+            //player.addHealth(HEALTH_POINTS);
             hide();
             reset();
         }

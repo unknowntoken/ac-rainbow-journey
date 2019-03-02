@@ -44,8 +44,7 @@ public class Player {
 
     private void initPlayerPicture() {
         playerPicture[0] = new Picture(40, 40, "resources/images/mary1.png");
-        playerPicture[1] = new Picture(40, 40, "resources/images/mary1s.png");
-        playerPicture[2] = new Picture(40, 40, "resources/images/mary2s 60.245.png");
+        playerPicture[1] = new Picture(40, 40, "resources/images/marySize.png");
         lowestY = 600 - (playerPicture[0].getY() + playerPicture[0].getHeight());
         playerPicture[0].draw();
         playerX = playerPicture[0].getX();
@@ -53,9 +52,9 @@ public class Player {
     }
 
     private void updatePlayerPicture() {
-        playerPictureCounter++;
-        if (playerPictureCounter % 8 == 0) { 
-
+        /*playerPictureCounter++;
+        if (playerPictureCounter % 8 == 0) {
+            System.out.println("COUNTER:" + playerPictureCounter);
             int index = (playerPictureCounter - 1) % playerPicture.length;
             System.out.println(index);
             playerX = playerPicture[index].getX();
@@ -68,7 +67,7 @@ public class Player {
             playerPicture[index].translate(playerX - currentx, playerY - currenty);
             playerPicture[index].draw();
             System.out.println(index);
-        }
+        }*/
     }
 
     private void initHealthBar() {
