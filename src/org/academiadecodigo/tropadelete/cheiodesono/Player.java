@@ -27,7 +27,7 @@ public class Player {
         down = true;
         health = 10;
 
-        picture = new Picture(40, 40, "resources/images/hero_chara_mario_pc.png");
+        picture = new Picture(40, 40, "resources/images/mary1.png");
         createHealthPlayer();
 
         picture.draw();
