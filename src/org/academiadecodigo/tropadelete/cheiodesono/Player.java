@@ -1,6 +1,9 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 
 
 
@@ -16,7 +19,7 @@ public class Player {
     private Picture[] playerPicture;
     private int playerPictureCounter;
 
-    private Picture[] healthPlayer;
+    private Rectangle[] healthPlayer;
 
     private int privatex;
     private int privatey;
@@ -73,23 +76,18 @@ public class Player {
     }
 
     private void initHealthBar (){
-        healthPlayer = new Picture[health];
-        healthPlayer[0] = new Picture(0,20,"resources/images/health0.png");
-        healthPlayer[1] = new Picture(0,20,"resources/images/health0.png");
-        healthPlayer[2] = new Picture(0,20,"resources/images/health0.png");
-        healthPlayer[3] = new Picture(0,20,"resources/images/health1.png");
-        healthPlayer[4] = new Picture(0,20,"resources/images/health1.png");
-        healthPlayer[5] = new Picture(0,20,"resources/images/health1.png");
-        healthPlayer[6] = new Picture(0,20,"resources/images/health2.png");
-        healthPlayer[7] = new Picture(0,20,"resources/images/health2.png");
-        healthPlayer[8] = new Picture(0,20,"resources/images/health2.png");
-        healthPlayer[9] = new Picture(0,20,"resources/images/health2.png");
+        healthPlayer = new Rectangle[health];
 
-        healthPlayer[0].translate(30,0);
+        healthPlayer[0] = new Rectangle(30,30,20,20);
+        healthPlayer[0].setColor(Color.GREEN);
         healthPlayer[0].draw();
+        healthPlayer[0].fill();
+
         for (int i = 1; i < healthPlayer.length; i++) {
-            healthPlayer[i].translate(healthPlayer[i-1].getX()+(healthPlayer[i].getWidth()+10),0);
+            healthPlayer[i] = new Rectangle(healthPlayer[i-1].getX()+20,30,20,20);
+            healthPlayer[i].setColor(Color.GREEN);
             healthPlayer[i].draw();
+            healthPlayer[i].fill();
         }
 
 
@@ -102,6 +100,7 @@ public class Player {
                 continue;
             }
             healthPlayer[i].draw();
+            healthPlayer[i].fill();
         }
 
     }
