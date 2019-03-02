@@ -2,8 +2,12 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.*;
 
-public class Game {
+import java.util.ConcurrentModificationException;
+import java.util.LinkedList;
+
+public class Game implements GameObjectHandler {
 
     private Rectangle rectangle;
     private Picture backgroundImage;
@@ -11,12 +15,11 @@ public class Game {
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static final int MAX_OBSTACLES = 4;
 
     private static final long LEVEL_GOAL_0 = 300000L;
 
 
-    private Obstacle[] obstacles;
+    private LinkedList<GameObject> gameObjects;
 
     private int obstacleIndex;  //Index of the obstacle next to be spawned
     private int newObstacleTrigger; //FrameCounter % newObstacleTrigger == 0 means show another obstacle
@@ -29,7 +32,6 @@ public class Game {
         frameCounter = 0;
         newObstacleTrigger = 300;
 
-        obstacles = new Obstacle[MAX_OBSTACLES];
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
@@ -39,11 +41,12 @@ public class Game {
 
         player = new Player();
         new KeyboardListener(player);
-        for (int i = 0; i < obstacles.length; i++) {
-            obstacles[i] = new Obstacle(player);
-        }
+        gameObjects = new LinkedList<>();
+        gameObjects.add(new Obstacle(player, this));
+
 
     }
+
 
     public void start() {
         init();
@@ -51,21 +54,21 @@ public class Game {
 
         while (true) {
             //System.out.println("Frame number:" + frameCounter);
-            if (gameOver()){
+            if (gameOver()) {
                 break;
             }
             frameCounter++;
             player.update();
-            manageObstacles();
+            manageNewObjects();
 
-
-            for (Obstacle obstacle : obstacles) {
-
-                obstacle.update();
-                if (isOutOfBoundsLeft(obstacle.getX())) {
-                    obstacle.hide();
-                    obstacle.reset();
+            try {
+                for (GameObject gameObject : gameObjects) {
+                    gameObject.update();
+                    if (isOutOfBoundsLeft(gameObject.getX())) {
+                        gameObjects.remove(gameObject);
+                    }
                 }
+            }catch (ConcurrentModificationException e) {
             }
 
             try {
@@ -77,16 +80,16 @@ public class Game {
 
     }
 
-    public void loseGame(){
+    public void loseGame() {
 
     }
 
-    public void winGame (){
+    public void winGame() {
 
     }
 
-    public boolean gameOver (){
-        if(player.getHealth() <=0){
+    public boolean gameOver() {
+        if (player.getHealth() <= 0) {
             loseGame();
             return true;
         }
@@ -96,26 +99,32 @@ public class Game {
 
     }
 
-    public void manageObstacles() {
-        if (frameCounter == 0) {
-            obstacles[obstacleIndex].show();
-            obstacleIndex++;
-        }
-
+    public void manageNewObjects() {
         if (frameCounter % newObstacleTrigger == 0) {
             //System.out.println("Showing new obstacle");
-            newObstacleTrigger= 300 + (int)(Math.random() * 700);
-            obstacles[obstacleIndex%obstacles.length].show();
-            obstacleIndex++;
+            newObstacleTrigger = 300 + (int) (Math.random() * 700);
+
+            if (Math.random() < .5) {
+                gameObjects.add(new Obstacle(player, this));
+                return;
+            }
+            gameObjects.add(new PowerUp(player, this));
         }
+
     }
 
-    public static boolean isOutOfBoundsRight (int x){
+    public static boolean isOutOfBoundsRight(int x) {
         return x > PADDING + WIDTH;
     }
+
     public static boolean isOutOfBoundsLeft(int x) {
         return x < PADDING;
 
+    }
+
+    @Override
+    public void remove(GameObject gameObject) {
+        gameObjects.remove(gameObject);
     }
     // public boolean checkColision(){
 

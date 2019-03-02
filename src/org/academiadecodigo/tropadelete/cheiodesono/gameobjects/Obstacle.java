@@ -1,8 +1,9 @@
-package org.academiadecodigo.tropadelete.cheiodesono;
+package org.academiadecodigo.tropadelete.cheiodesono.gameobjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.tropadelete.cheiodesono.Collision;
 
-public class PowerUp {
+public class Obstacle implements GameObject {
 
     private Player player;
     private Picture picture;
@@ -10,17 +11,20 @@ public class PowerUp {
     private boolean show;
     private static final int START_X = 800;
     private static final int START_Y = 500;
-    private static final int HEALTH_POINTS = 1;
+    private static final int HIT_POINTS = 1;
+    private GameObjectHandler gameObjectHandler;
 
 
-    public PowerUp(Player player) {
+    public Obstacle(Player player, GameObjectHandler gameObjectHandler) {
         this.player = player;
+        this.gameObjectHandler = gameObjectHandler;
         reset();
     }
 
     public void reset() {
-        picture = new Picture(START_X, START_Y, ObstacleImage.getRandomType().getResource());
-        show = false;
+        picture = new Picture(START_X, START_Y, ObstacleResource.getRandomType().getResource());
+        picture.draw();
+        show = true;
 
     }
 
@@ -30,9 +34,9 @@ public class PowerUp {
 
         }
         if (hitPlayer()){
-            //player.addHealth(HEALTH_POINTS);
+            player.hit(HIT_POINTS);
             hide();
-            reset();
+            gameObjectHandler.remove(this);
         }
     }
 
@@ -49,8 +53,14 @@ public class PowerUp {
         return picture.getY();
     }
 
+    @Override
+    public void hit(int damage) {
+
+    }
+
     public void hide() {
         picture.delete();
+        gameObjectHandler.remove(this);
         show = false;
     }
 

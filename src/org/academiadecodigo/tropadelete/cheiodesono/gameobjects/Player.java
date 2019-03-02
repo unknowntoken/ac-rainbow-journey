@@ -1,11 +1,12 @@
-package org.academiadecodigo.tropadelete.cheiodesono;
+package org.academiadecodigo.tropadelete.cheiodesono.gameobjects;
 
 import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+import org.academiadecodigo.tropadelete.cheiodesono.Game;
 
 
-public class Player {
+public class Player implements GameObject{
     private static final int JUMP_HEIGHT = 200;
 
     private int health;
@@ -21,6 +22,7 @@ public class Player {
 
     private int playerX;
     private int playerY;
+    
     private int lowestY;
 
 
@@ -54,20 +56,11 @@ public class Player {
     private void updatePlayerPicture() {
         /*playerPictureCounter++;
         if (playerPictureCounter % 8 == 0) {
-            System.out.println("COUNTER:" + playerPictureCounter);
-            int index = (playerPictureCounter - 1) % playerPicture.length;
-            System.out.println(index);
-            playerX = playerPicture[index].getX();
-            playerY = playerPicture[index].getY();
-            playerPicture[index].delete();
-            index = playerPictureCounter % playerPicture.length;
+            int index = playerPictureCounter % playerPicture.length;
 
-            int currentx = playerPicture[index].getX();
-            int currenty = playerPicture[index].getY();
-            playerPicture[index].translate(playerX - currentx, playerY - currenty);
-            playerPicture[index].draw();
-            System.out.println(index);
-        }*/
+            System.out.println("INDEX: " + index);
+
+        } */
     }
 
     private void initHealthBar() {
@@ -118,9 +111,23 @@ public class Player {
         down = false;
     }
 
+    @Override
+    public void show() {
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void reset() {
+
+    }
+
     private Picture playerPicture() {
         int index = playerPictureCounter % playerPicture.length;
-        return playerPicture[index];
+        return playerPicture[0];
     }
 
     private void jumpAction() {
@@ -171,14 +178,19 @@ public class Player {
         return health;
     }
 
+    public void addHealth (int health){
+        this.health += health;
+        updateHealthBar();
+        System.out.println("Health:" + this.health);
+    }
     public void hit(int damage) {
-        health -= damage;
+        this.health -= damage;
         if (health < 0) {
             health = 0;
         }
         updateHealthBar();
         updatePlayerPicture();
-        System.out.println("Health: " + health);
+        System.out.println("Health: " + this.health);
     }
 
     public int getWidth() {
