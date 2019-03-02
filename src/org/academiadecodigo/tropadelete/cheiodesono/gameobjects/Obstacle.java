@@ -7,7 +7,7 @@ public class Obstacle implements GameObject {
 
     private Player player;
     private Picture picture;
-
+    private Sound impact;
     private boolean show;
     private static final int START_X = 800;
     private static final int START_Y = 500;
@@ -19,6 +19,7 @@ public class Obstacle implements GameObject {
         this.player = player;
         this.gameObjectHandler = gameObjectHandler;
         reset();
+        impact = new Sound("/resources/sounds/impact.wav");
     }
 
     public void reset() {
@@ -34,6 +35,7 @@ public class Obstacle implements GameObject {
 
         }
         if (hitPlayer()){
+            impact.play(true);
             player.hit(HIT_POINTS);
             hide();
             gameObjectHandler.remove(this);

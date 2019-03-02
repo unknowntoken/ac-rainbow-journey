@@ -15,6 +15,10 @@ public class Game implements GameObjectHandler {
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
+    private static final int MAX_OBSTACLES = 4;
+    private Sound backgroundMusic1;
+    private Sound gameOverBackgroundMusic;
+    private Sound gameOver;
 
     private static final long LEVEL_GOAL_0 = 300000L;
 
@@ -29,6 +33,11 @@ public class Game implements GameObjectHandler {
     private long currentLevelGoal;
 
     private void init() {
+        gameOver = new Sound("/resources/sounds/gameover.wav");
+        gameOverBackgroundMusic = new Sound("/resources/sounds/gameOverBackgroundMusic.wav");
+        backgroundMusic1 = new Sound("/resources/sounds/background.wav");
+        backgroundMusic1.play(true);
+        backgroundMusic1.setLoop(10000);
         obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;
@@ -89,16 +98,20 @@ public class Game implements GameObjectHandler {
 
     }
 
-    public void loseGame() {
+    public void loseGame(){
 
+        backgroundMusic1.stop();
+        gameOverBackgroundMusic.play(true);
+        gameOverBackgroundMusic.setLoop(1000);
     }
 
-    public void winGame() {
+    public void winGame (){
 
     }
 
     public boolean gameOver() {
         if (player.getHealth() <= 0) {
+            gameOver.play(true);
             loseGame();
             return true;
         }
@@ -125,7 +138,6 @@ public class Game implements GameObjectHandler {
     public static boolean isOutOfBoundsRight(int x) {
         return x > PADDING + WIDTH;
     }
-
     public static boolean isOutOfBoundsLeft(int x) {
         return x < PADDING;
 

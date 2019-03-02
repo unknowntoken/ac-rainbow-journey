@@ -12,6 +12,7 @@ public class Player implements GameObject{
     private int health;
     private boolean jumping;
     private boolean down;
+    private Sound jumpSound;
 
 
     private int jumpCounter;
@@ -34,7 +35,7 @@ public class Player implements GameObject{
         down = true;
         health = 10;
         playerPicture = new Picture[3];
-
+        jumpSound = new Sound("/resources/sounds/jump.wav");
         initHealthBar();
         initPlayerPicture();
 
@@ -146,6 +147,7 @@ public class Player implements GameObject{
 
     public void jump() {
         if (!down) {
+            jumpSound.play(true);
             jumping = true;
             down = true;
         }
