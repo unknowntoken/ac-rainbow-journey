@@ -28,6 +28,7 @@ public class Obstacle {
         if (show) {
             picture.translate(-1, 0);
 
+
         }
         if (hitPlayer()){
             player.hit(HIT_POINTS);

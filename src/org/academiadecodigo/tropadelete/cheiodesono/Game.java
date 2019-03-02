@@ -7,6 +7,10 @@ public class Game {
 
     private Rectangle rectangle;
     private Picture backgroundImage;
+    private Picture backgroundCity;
+    private Picture translate;
+    private Picture translate2;
+
     private Player player;
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
@@ -33,13 +37,20 @@ public class Game {
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
-        backgroundImage = new Picture(PADDING, PADDING, "resources/Sky-Wallpapers.jpg");
+        backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
+        backgroundCity = new Picture(PADDING,PADDING,"resources/pavement.png");
+        translate = new Picture(PADDING,PADDING,"resources/tracejado1.png");
+        translate2 = new Picture(PADDING,PADDING,"resources/tracejado2.png");
+
         backgroundImage.draw();
+        backgroundCity.draw();
+
 
 
         player = new Player();
         new KeyboardListener(player);
         for (int i = 0; i < obstacles.length; i++) {
+
             obstacles[i] = new Obstacle(player);
         }
 
@@ -54,10 +65,10 @@ public class Game {
             if (gameOver()){
                 break;
             }
+
             frameCounter++;
             player.update();
             manageObstacles();
-
 
             for (Obstacle obstacle : obstacles) {
 
