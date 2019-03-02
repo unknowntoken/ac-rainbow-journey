@@ -12,7 +12,9 @@ public class Game {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final int MAX_OBSTACLES = 4;
-    private Sound backgroundMusic;
+    private Sound backgroundMusic1;
+    private Sound gameOverBackgroundMusic;
+    private Sound gameOver;
 
     private static final long LEVEL_GOAL_0 = 300000L;
 
@@ -26,9 +28,11 @@ public class Game {
     private long currentLevelGoal;
 
     private void init() {
-        backgroundMusic = new Sound("/resources/sounds/background.wav");
-        backgroundMusic.play(true);
-        backgroundMusic.setLoop(10000);
+        gameOver = new Sound("/resources/sounds/gameover.wav");
+        gameOverBackgroundMusic = new Sound("/resources/sounds/gameOverBackgroundMusic.wav");
+        backgroundMusic1 = new Sound("/resources/sounds/background.wav");
+        backgroundMusic1.play(true);
+        backgroundMusic1.setLoop(10000);
         obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;
@@ -55,7 +59,7 @@ public class Game {
 
         while (true) {
             //System.out.println("Frame number:" + frameCounter);
-            if (gameOver()){
+            if (gameOver()) {
                 break;
             }
             frameCounter++;
@@ -81,16 +85,20 @@ public class Game {
 
     }
 
-    public void loseGame(){
+    public void loseGame() {
+
+        backgroundMusic1.stop();
+        gameOverBackgroundMusic.play(true);
+        gameOverBackgroundMusic.setLoop(1000);
+    }
+
+    public void winGame() {
 
     }
 
-    public void winGame (){
-
-    }
-
-    public boolean gameOver (){
-        if(player.getHealth() <=0){
+    public boolean gameOver() {
+        if (player.getHealth() <= 0) {
+            gameOver.play(true);
             loseGame();
             return true;
         }
@@ -108,15 +116,16 @@ public class Game {
 
         if (frameCounter % newObstacleTrigger == 0) {
             //System.out.println("Showing new obstacle");
-            newObstacleTrigger= 300 + (int)(Math.random() * 700);
-            obstacles[obstacleIndex%obstacles.length].show();
+            newObstacleTrigger = 300 + (int) (Math.random() * 700);
+            obstacles[obstacleIndex % obstacles.length].show();
             obstacleIndex++;
         }
     }
 
-    public static boolean isOutOfBoundsRight (int x){
+    public static boolean isOutOfBoundsRight(int x) {
         return x > PADDING + WIDTH;
     }
+
     public static boolean isOutOfBoundsLeft(int x) {
         return x < PADDING;
 
