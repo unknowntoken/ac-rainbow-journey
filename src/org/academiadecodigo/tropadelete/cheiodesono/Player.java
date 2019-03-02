@@ -99,6 +99,9 @@ public class Player {
                 healthPlayer[i].delete();
                 continue;
             }
+            if (health <= 5){
+                healthPlayer[i].setColor(Color.RED);
+            }
             healthPlayer[i].draw();
             healthPlayer[i].fill();
         }
