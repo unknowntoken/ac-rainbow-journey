@@ -15,6 +15,7 @@ public class Player {
 
     private int jumpCounter;
     private Picture[] playerPicture;
+    private Picture healthPicture;
     private int playerPictureCounter;
 
     private Rectangle[] healthPlayer;
@@ -32,7 +33,6 @@ public class Player {
         down = true;
         health = 10;
         playerPicture = new Picture[3];
-
         initHealthBar();
         initPlayerPicture();
 
@@ -43,6 +43,7 @@ public class Player {
     }
 
     private void initPlayerPicture() {
+
         playerPicture[0] = new Picture(40, 40, "resources/images/mary1.png");
         playerPicture[1] = new Picture(40, 40, "resources/images/marySize.png");
         lowestY = 600 - (playerPicture[0].getY() + playerPicture[0].getHeight());
@@ -72,6 +73,8 @@ public class Player {
 
     private void initHealthBar() {
         healthPlayer = new Rectangle[health];
+        healthPicture = new Picture(0,30,"resources/health.png");
+        healthPicture.draw();
 
         healthPlayer[0] = new Rectangle(30, 30, 20, 20);
         healthPlayer[0].setColor(Color.GREEN);
@@ -94,7 +97,10 @@ public class Player {
                 healthPlayer[i].delete();
                 continue;
             }
-            if (health <= 5) {
+            if (health >=3 && health <=7){
+                healthPlayer[i].setColor(Color.ORANGE);
+            }
+            if (health < 3) {
                 healthPlayer[i].setColor(Color.RED);
             }
             healthPlayer[i].draw();
