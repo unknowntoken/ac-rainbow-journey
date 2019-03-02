@@ -46,6 +46,15 @@ public class Game implements GameObjectHandler {
         frameCounter = 0;
         newObstacleTrigger = 300;
 
+        Picture start = new Picture(PADDING,PADDING,"resources/images/capa.png");
+        start.draw();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        start.delete();
+
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
@@ -112,10 +121,13 @@ public class Game implements GameObjectHandler {
         backgroundMusic1.stop();
         gameOverBackgroundMusic.play(true);
         gameOverBackgroundMusic.setLoop(1000);
+        Picture endGame = new Picture(PADDING,PADDING,"resources/images/1.png");
+        endGame.draw();
     }
 
     public void winGame (){
-
+        //Picture endGame = new Picture(PADDING,PADDING,"resources/images/2.png");
+        //endGame.draw();
     }
 
     public boolean gameOver() {

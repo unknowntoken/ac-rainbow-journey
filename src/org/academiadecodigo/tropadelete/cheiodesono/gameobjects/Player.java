@@ -154,6 +154,8 @@ public class Player implements GameObject {
     }
 
     public void jump() {
+            jumpSound.play(true);
+
         if (!down) {
             jumping = true;
             down = true;
@@ -187,16 +189,18 @@ public class Player implements GameObject {
         return health;
     }
 
-    public void addHealth (int health){
-        this.health += health;
-        updateHealthBar();
-        System.out.println("Health:" + this.health);
-    }
     public void hit(int damage) {
         health -= damage;
         if (health < 0) {
             health = 0;
         }
+        updateHealthBar();
+        updatePlayerPicture();
+        System.out.println("Health: " + health);
+    }
+
+    public void addHealth(int health){
+        this.health += health;
         updateHealthBar();
         updatePlayerPicture();
         System.out.println("Health: " + health);
