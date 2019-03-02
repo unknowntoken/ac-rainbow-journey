@@ -12,6 +12,7 @@ public class Game {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final int MAX_OBSTACLES = 4;
+    private Sound backgroundMusic;
 
     private static final long LEVEL_GOAL_0 = 300000L;
 
@@ -25,6 +26,8 @@ public class Game {
     private long currentLevelGoal;
 
     private void init() {
+        backgroundMusic = new Sound("/resources/sounds/background.wav");
+        backgroundMusic.play(true);
         obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;

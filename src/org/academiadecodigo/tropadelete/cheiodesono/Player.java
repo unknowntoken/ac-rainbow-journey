@@ -33,7 +33,7 @@ public class Player {
         down = true;
         health = 10;
         playerPicture = new Picture[3];
-        jumpSound = new Sound("/resources/sounds/386572__shanef91__jumping-1.wav");
+        jumpSound = new Sound("/resources/sounds/playerjump.wav");
         initHealthBar();
         initPlayerPicture ();
 
