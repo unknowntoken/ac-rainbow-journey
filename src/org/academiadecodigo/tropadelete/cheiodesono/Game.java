@@ -50,7 +50,7 @@ public class Game {
         currentLevelGoal = LEVEL_GOAL_0;
 
         while (true) {
-            System.out.println("Frame number:" + frameCounter);
+            //System.out.println("Frame number:" + frameCounter);
             if (gameOver()){
                 break;
             }
@@ -62,7 +62,7 @@ public class Game {
             for (Obstacle obstacle : obstacles) {
 
                 obstacle.update();
-                if (isOutOfBounds(obstacle.getX(), obstacle.getY())) {
+                if (isOutOfBoundsLeft(obstacle.getX())) {
                     obstacle.hide();
                     obstacle.reset();
                 }
@@ -87,7 +87,6 @@ public class Game {
 
     public boolean gameOver (){
         if(player.getHealth() <=0){
-            player.setHealth (0);
             loseGame();
             return true;
         }
@@ -111,7 +110,10 @@ public class Game {
         }
     }
 
-    public boolean isOutOfBounds(int x, int y) {
+    public static boolean isOutOfBoundsRight (int x){
+        return x > PADDING + WIDTH;
+    }
+    public static boolean isOutOfBoundsLeft(int x) {
         return x < PADDING;
 
     }

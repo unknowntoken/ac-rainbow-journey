@@ -11,7 +11,6 @@ public enum ObstacleImage {
     }
 
     public String getResource (){
-        System.out.println(resource);
         return this.resource;
     }
 

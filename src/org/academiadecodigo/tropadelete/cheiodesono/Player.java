@@ -1,7 +1,6 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
-import org.academiadecodigo.simplegraphics.graphics.Color;
-import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
@@ -16,7 +15,7 @@ public class Player {
 
     private int animationCounter;
     private Picture picture;
-    private Rectangle healthPlayer;
+    private Picture[] healthPlayer;
 
     private int lowestY;
 
@@ -26,9 +25,8 @@ public class Player {
         animationCounter = 0;
         down = true;
         health = 10;
-
         picture = new Picture(40, 40, "resources/images/mary1.png");
-        createHealthPlayer();
+        initHealthBar();
 
         picture.draw();
         this.jumping = false;
@@ -37,6 +35,39 @@ public class Player {
 
     }
 
+    private void initHealthBar (){
+        healthPlayer = new Picture[health];
+        healthPlayer[0] = new Picture(0,20,"resources/images/health0.png");
+        healthPlayer[1] = new Picture(0,20,"resources/images/health0.png");
+        healthPlayer[2] = new Picture(0,20,"resources/images/health0.png");
+        healthPlayer[3] = new Picture(0,20,"resources/images/health1.png");
+        healthPlayer[4] = new Picture(0,20,"resources/images/health1.png");
+        healthPlayer[5] = new Picture(0,20,"resources/images/health1.png");
+        healthPlayer[6] = new Picture(0,20,"resources/images/health2.png");
+        healthPlayer[7] = new Picture(0,20,"resources/images/health2.png");
+        healthPlayer[8] = new Picture(0,20,"resources/images/health2.png");
+        healthPlayer[9] = new Picture(0,20,"resources/images/health2.png");
+
+        healthPlayer[0].translate(30,0);
+        healthPlayer[0].draw();
+        for (int i = 1; i < healthPlayer.length; i++) {
+            healthPlayer[i].translate(healthPlayer[i-1].getX()+(healthPlayer[i].getWidth()+10),0);
+            healthPlayer[i].draw();
+        }
+        
+
+    }
+
+    private void updateHealthBar() {
+        for (int i = 0; i < healthPlayer.length; i++) {
+            if (i >= health){
+                healthPlayer[i].delete();
+
+            }
+            Canvas.getInstance().repaint();
+        }
+
+    }
     public void update() {
 
         if (jumping) {
@@ -72,11 +103,16 @@ public class Player {
     }
 
     public void moveLeft() {
+        if (Game.isOutOfBoundsLeft(picture.getX()-10)){
+            return;
+        }
         picture.translate(-10, 0);
     }
 
     public void moveRight() {
-        System.out.println("move right");
+        if (Game.isOutOfBoundsRight(picture.getX()+10)){
+            return;
+        }
         picture.translate(10, 0);
     }
 
@@ -85,14 +121,16 @@ public class Player {
         down = true;
         animationCounter =0;
     }
-    public void setHealth (int health){
-        this.health = health;
-    }
+
     public int getHealth (){
         return health;
     }
     public void hit(int damage) {
         health -= damage;
+        if (health < 0){
+            health =0;
+        }
+        updateHealthBar();
         System.out.println("Health: " + health);
     }
 
@@ -112,22 +150,6 @@ public class Player {
         return picture.getY();
     }
 
-    public void createHealthPlayer() {
-        //fullHealthPlayer = new Rectangle(getX()*(health), getY(),30,30);
-        for (int i = 1 ; i < health+1 ; i++) {
-            healthPlayer = new Rectangle((getX() -10 )* i, getY(), 30, 30);
-            if (health < 5){
-                healthPlayer.setColor(Color.RED);
-                healthPlayer.fill();
-            }else {
-                healthPlayer.setColor(Color.GREEN);
-                //healthPlayer.draw();
-                healthPlayer.fill();
-            }
-            System.out.println(i);
-            //fullHealthPlayer.fill();
-        }
-    }
 
 
 
