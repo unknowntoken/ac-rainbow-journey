@@ -1,6 +1,5 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 
@@ -13,26 +12,64 @@ public class Player {
     private boolean down;
 
 
-    private int animationCounter;
-    private Picture picture;
+    private int jumpCounter;
+    private Picture[] playerPicture;
+    private int playerPictureCounter;
+
     private Picture[] healthPlayer;
 
+    private int privatex;
+    private int privatey;
     private int lowestY;
 
 
 
     public Player() {
-        animationCounter = 0;
+        jumpCounter = 0;
+        playerPictureCounter =0;
+        privatex =0;
+        privatey=0;
         down = true;
         health = 10;
-        picture = new Picture(40, 40, "resources/images/mary1.png");
-        initHealthBar();
+        playerPicture = new Picture[3];
 
-        picture.draw();
+        initHealthBar();
+        initPlayerPicture ();
+
+
         this.jumping = false;
 
-        lowestY = 600 - (picture.getY() + picture.getHeight());
 
+
+    }
+
+    private void initPlayerPicture() {
+        playerPicture[0] = new Picture(40, 40, "resources/images/mary1.png");
+        playerPicture[1] = new Picture(40, 40, "resources/images/mary1s.png");
+        playerPicture[2] = new Picture(40, 40, "resources/images/mary2s 60.245.png");
+        lowestY = 600 - (playerPicture[0].getY() + playerPicture[0].getHeight());
+        playerPicture[0].draw();
+        privatex = playerPicture[0].getX();
+        privatey = playerPicture[0].getY();
+    }
+
+    private void updatePlayerPicture (){
+        playerPictureCounter++;
+        if (playerPictureCounter % 8 ==0){
+
+            int index = (playerPictureCounter-1)%playerPicture.length;
+            System.out.println(index);
+            int previousx = playerPicture[index].getX();
+            int previousy = playerPicture[index].getY();
+            playerPicture[index].delete();
+            index = playerPictureCounter%playerPicture.length;
+
+            int currentx = playerPicture[index].getX();
+            int currenty = playerPicture[index].getY();
+            playerPicture[index].translate(previousx-currentx,previousy-currenty);
+            playerPicture[index].draw();
+            System.out.println(index);
+        }
     }
 
     private void initHealthBar (){
@@ -54,7 +91,7 @@ public class Player {
             healthPlayer[i].translate(healthPlayer[i-1].getX()+(healthPlayer[i].getWidth()+10),0);
             healthPlayer[i].draw();
         }
-        
+
 
     }
 
@@ -62,34 +99,40 @@ public class Player {
         for (int i = 0; i < healthPlayer.length; i++) {
             if (i >= health){
                 healthPlayer[i].delete();
-
+                continue;
             }
-            Canvas.getInstance().repaint();
+            healthPlayer[i].draw();
         }
 
     }
     public void update() {
-
+        updatePlayerPicture ();
         if (jumping) {
             jumpAction();
             return;
         }
 
-        if (picture.getY() < lowestY) {
-            picture.translate(0, 1);
+        if (playerPicture().getY() < lowestY) {
+            playerPicture().translate(0, 1);
+            updatePlayerPicture();
             return;
         }
         down = false;
     }
 
+    private Picture playerPicture (){
+        int index = playerPictureCounter%playerPicture.length;
+        return playerPicture[index];
+    }
     private void jumpAction() {
-        //System.out.println("Y:" + picture.getY());
-        //System.out.println("counter" + animationCounter);
+        //System.out.println("Y:" + playerPicture.getY());
+        //System.out.println("counter" + jumpCounter);
 
-        animationCounter++;
-        picture.translate(0, -1);
-        if (animationCounter >= JUMP_HEIGHT) {
-            animationCounter =0;
+        jumpCounter++;
+        playerPicture().translate(0, -1);
+        updatePlayerPicture();
+        if (jumpCounter >= JUMP_HEIGHT) {
+            jumpCounter =0;
             jumping = false;
             down = true;
         }
@@ -103,23 +146,26 @@ public class Player {
     }
 
     public void moveLeft() {
-        if (Game.isOutOfBoundsLeft(picture.getX()-10)){
+        if (Game.isOutOfBoundsLeft(playerPicture().getX()-10)){
             return;
         }
-        picture.translate(-10, 0);
+        playerPicture().translate(-10, 0);
+        updatePlayerPicture();
     }
 
     public void moveRight() {
-        if (Game.isOutOfBoundsRight(picture.getX()+10)){
+        if (Game.isOutOfBoundsRight(playerPicture().getX()+10)){
             return;
         }
-        picture.translate(10, 0);
+        playerPicture().translate(10, 0);
+        updatePlayerPicture();
     }
 
     public void releaseJump() {
         jumping = false;
         down = true;
-        animationCounter =0;
+        jumpCounter =0;
+        updatePlayerPicture();
     }
 
     public int getHealth (){
@@ -131,23 +177,24 @@ public class Player {
             health =0;
         }
         updateHealthBar();
+        updatePlayerPicture();
         System.out.println("Health: " + health);
     }
 
     public int getWidth() {
-        return picture.getWidth();
+        return playerPicture().getWidth();
     }
 
     public int getHeight() {
-        return picture.getHeight();
+        return playerPicture().getHeight();
     }
 
     public int getX() {
-        return picture.getX();
+        return playerPicture().getX();
     }
 
     public int getY() {
-        return picture.getY();
+        return playerPicture().getY();
     }
 
 
