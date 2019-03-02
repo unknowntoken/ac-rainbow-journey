@@ -54,7 +54,7 @@ public class Player {
 
     private void updatePlayerPicture() {
         playerPictureCounter++;
-        if (playerPictureCounter % 8 == 0) {
+        if (playerPictureCounter % 8 == 0) { 
 
             int index = (playerPictureCounter - 1) % playerPicture.length;
             System.out.println(index);
