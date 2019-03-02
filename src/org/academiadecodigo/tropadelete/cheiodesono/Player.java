@@ -1,10 +1,13 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
+import org.academiadecodigo.simplegraphics.graphics.Color;
+import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
+
+
 
 public class Player {
     private static final int JUMP_HEIGHT = 200;
-
 
     private int health;
     private boolean jumping;
@@ -13,15 +16,20 @@ public class Player {
 
     private int animationCounter;
     private Picture picture;
+    private Rectangle healthPlayer;
+
     private int lowestY;
 
 
 
     public Player() {
         animationCounter = 0;
-        health = 100;
         down = true;
+        health = 10;
+
         picture = new Picture(40, 40, "resources/images/hero_chara_mario_pc.png");
+        createHealthPlayer();
+
         picture.draw();
         this.jumping = false;
 
@@ -46,8 +54,6 @@ public class Player {
     private void jumpAction() {
         //System.out.println("Y:" + picture.getY());
         //System.out.println("counter" + animationCounter);
-
-
 
         animationCounter++;
         picture.translate(0, -1);
@@ -105,4 +111,24 @@ public class Player {
     public int getY() {
         return picture.getY();
     }
+
+    public void createHealthPlayer() {
+        //fullHealthPlayer = new Rectangle(getX()*(health), getY(),30,30);
+        for (int i = 1 ; i < health+1 ; i++) {
+            healthPlayer = new Rectangle((getX() -10 )* i, getY(), 30, 30);
+            if (health < 5){
+                healthPlayer.setColor(Color.RED);
+                healthPlayer.fill();
+            }else {
+                healthPlayer.setColor(Color.GREEN);
+                //healthPlayer.draw();
+                healthPlayer.fill();
+            }
+            System.out.println(i);
+            //fullHealthPlayer.fill();
+        }
+    }
+
+
+
 }

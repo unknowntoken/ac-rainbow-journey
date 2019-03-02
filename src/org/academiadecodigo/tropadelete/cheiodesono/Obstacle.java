@@ -10,7 +10,7 @@ public class Obstacle {
     private boolean show;
     private static final int START_X = 800;
     private static final int START_Y = 500;
-    private static final int HIT_POINTS = 10;
+    private static final int HIT_POINTS = 1;
 
 
     public Obstacle(Player player) {
