@@ -6,7 +6,7 @@ public class Obstacle {
 
     private Player player;
     private Picture picture;
-
+    private Sound impact;
     private boolean show;
     private static final int START_X = 800;
     private static final int START_Y = 500;
@@ -16,6 +16,7 @@ public class Obstacle {
     public Obstacle(Player player) {
         this.player = player;
         reset();
+        impact = new Sound("/resources/sounds/impact.wav");
     }
 
     public void reset() {
@@ -30,6 +31,7 @@ public class Obstacle {
 
         }
         if (hitPlayer()){
+            impact.play(true);
             player.hit(HIT_POINTS);
             hide();
             reset();

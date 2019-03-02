@@ -28,6 +28,7 @@ public class Game {
     private void init() {
         backgroundMusic = new Sound("/resources/sounds/background.wav");
         backgroundMusic.play(true);
+        backgroundMusic.setLoop(10000);
         obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;
