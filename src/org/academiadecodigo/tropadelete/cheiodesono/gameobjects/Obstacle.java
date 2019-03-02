@@ -60,7 +60,7 @@ public class Obstacle implements GameObject {
 
     public void hide() {
         picture.delete();
-        gameObjectHandler.remove(this);
+        //gameObjectHandler.remove(this);
         show = false;
     }
 

@@ -20,6 +20,7 @@ public class Game implements GameObjectHandler {
 
 
     private LinkedList<GameObject> gameObjects;
+    LinkedList<GameObject> toRemove = new LinkedList<>();
 
     private int obstacleIndex;  //Index of the obstacle next to be spawned
     private int newObstacleTrigger; //FrameCounter % newObstacleTrigger == 0 means show another obstacle
@@ -65,11 +66,19 @@ public class Game implements GameObjectHandler {
                 for (GameObject gameObject : gameObjects) {
                     gameObject.update();
                     if (isOutOfBoundsLeft(gameObject.getX())) {
-                        gameObjects.remove(gameObject);
+                        toRemove.add(gameObject);
                     }
                 }
-            }catch (ConcurrentModificationException e) {
+            } catch (ConcurrentModificationException e) {
+                e.printStackTrace();
             }
+
+            for (GameObject remove : toRemove) {
+                System.out.println("removing");
+                remove.hide();
+                gameObjects.remove(remove);
+            }
+            toRemove.clear();
 
             try {
                 Thread.sleep(3);
@@ -124,7 +133,7 @@ public class Game implements GameObjectHandler {
 
     @Override
     public void remove(GameObject gameObject) {
-        gameObjects.remove(gameObject);
+        toRemove.add(gameObject);
     }
     // public boolean checkColision(){
 
