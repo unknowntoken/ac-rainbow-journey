@@ -2,6 +2,7 @@ package org.academiadecodigo.tropadelete.cheiodesono.gameobjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.Collision;
+import org.academiadecodigo.tropadelete.cheiodesono.Sound;
 
 public class Obstacle implements GameObject {
 
@@ -32,6 +33,7 @@ public class Obstacle implements GameObject {
     public void update() {
         if (show) {
             picture.translate(-1, 0);
+
 
         }
         if (hitPlayer()){

@@ -4,9 +4,11 @@ import org.academiadecodigo.simplegraphics.graphics.Color;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.Game;
+import org.academiadecodigo.tropadelete.cheiodesono.Sound;
+import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.GameObject;
 
 
-public class Player implements GameObject{
+public class Player implements GameObject {
     private static final int JUMP_HEIGHT = 200;
 
     private int health;
@@ -17,13 +19,13 @@ public class Player implements GameObject{
 
     private int jumpCounter;
     private Picture[] playerPicture;
+    private Picture healthPicture;
     private int playerPictureCounter;
 
     private Rectangle[] healthPlayer;
 
     private int playerX;
     private int playerY;
-    
     private int lowestY;
 
 
@@ -46,6 +48,7 @@ public class Player implements GameObject{
     }
 
     private void initPlayerPicture() {
+
         playerPicture[0] = new Picture(40, 40, "resources/images/mary1.png");
         playerPicture[1] = new Picture(40, 40, "resources/images/marySize.png");
         lowestY = 600 - (playerPicture[0].getY() + playerPicture[0].getHeight());
@@ -66,6 +69,8 @@ public class Player implements GameObject{
 
     private void initHealthBar() {
         healthPlayer = new Rectangle[health];
+        healthPicture = new Picture(0,30,"resources/health.png");
+        healthPicture.draw();
 
         healthPlayer[0] = new Rectangle(30, 30, 20, 20);
         healthPlayer[0].setColor(Color.GREEN);
@@ -88,7 +93,10 @@ public class Player implements GameObject{
                 healthPlayer[i].delete();
                 continue;
             }
-            if (health <= 5) {
+            if (health >=3 && health <=7){
+                healthPlayer[i].setColor(Color.ORANGE);
+            }
+            if (health < 3) {
                 healthPlayer[i].setColor(Color.RED);
             }
             healthPlayer[i].draw();
@@ -128,7 +136,7 @@ public class Player implements GameObject{
 
     private Picture playerPicture() {
         int index = playerPictureCounter % playerPicture.length;
-        return playerPicture[0];
+        return playerPicture[index];
     }
 
     private void jumpAction() {
@@ -147,7 +155,6 @@ public class Player implements GameObject{
 
     public void jump() {
         if (!down) {
-            jumpSound.play(true);
             jumping = true;
             down = true;
         }
@@ -186,13 +193,13 @@ public class Player implements GameObject{
         System.out.println("Health:" + this.health);
     }
     public void hit(int damage) {
-        this.health -= damage;
+        health -= damage;
         if (health < 0) {
             health = 0;
         }
         updateHealthBar();
         updatePlayerPicture();
-        System.out.println("Health: " + this.health);
+        System.out.println("Health: " + health);
     }
 
     public int getWidth() {

@@ -11,6 +11,10 @@ public class Game implements GameObjectHandler {
 
     private Rectangle rectangle;
     private Picture backgroundImage;
+    private Picture backgroundCity;
+    private Picture translate;
+    private Picture translate2;
+
     private Player player;
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
@@ -45,8 +49,13 @@ public class Game implements GameObjectHandler {
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
-        backgroundImage = new Picture(PADDING, PADDING, "resources/Sky-Wallpapers.jpg");
+        backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
+        backgroundCity = new Picture(PADDING,PADDING,"resources/pavement.png");
+        translate = new Picture(PADDING,PADDING,"resources/tracejado1.png");
+        translate2 = new Picture(PADDING,PADDING,"resources/tracejado2.png");
+
         backgroundImage.draw();
+        backgroundCity.draw();
 
 
         player = new Player();
@@ -64,7 +73,7 @@ public class Game implements GameObjectHandler {
 
         while (true) {
             //System.out.println("Frame number:" + frameCounter);
-            if (gameOver()) {
+            if (gameOver()){
                 break;
             }
             frameCounter++;
@@ -132,10 +141,9 @@ public class Game implements GameObjectHandler {
             }
             gameObjects.add(new PowerUp(player, this));
         }
-
     }
 
-    public static boolean isOutOfBoundsRight(int x) {
+    public static boolean isOutOfBoundsRight (int x){
         return x > PADDING + WIDTH;
     }
     public static boolean isOutOfBoundsLeft(int x) {
