@@ -101,7 +101,6 @@ public class Game implements GameObjectHandler {
             }
 
             for (GameObject remove : toRemove) {
-                System.out.println("removing");
                 remove.hide();
                 gameObjects.remove(remove);
             }

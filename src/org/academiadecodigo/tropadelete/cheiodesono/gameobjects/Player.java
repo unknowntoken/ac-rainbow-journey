@@ -18,58 +18,42 @@ public class Player implements GameObject {
 
 
     private int jumpCounter;
-    private Picture[] playerPicture;
+    private Sprite sprite;
+
     private Picture healthPicture;
-    private int playerPictureCounter;
 
     private Rectangle[] healthPlayer;
 
-    private int playerX;
-    private int playerY;
+
     private int lowestY;
 
 
     public Player() {
         jumpCounter = 0;
-        playerPictureCounter = 0;
-        playerX = 0;
-        playerY = 0;
         down = true;
         health = 10;
-        playerPicture = new Picture[3];
+        sprite = new Sprite(50);
         jumpSound = new Sound("/resources/sounds/jump.wav");
+
         initHealthBar();
         initPlayerPicture();
 
 
         this.jumping = false;
-
-
     }
 
     private void initPlayerPicture() {
 
-        playerPicture[0] = new Picture(40, 40, "resources/images/mary1.png");
-        playerPicture[1] = new Picture(40, 40, "resources/images/marySize.png");
-        lowestY = 600 - (playerPicture[0].getY() + playerPicture[0].getHeight());
-        playerPicture[0].draw();
-        playerX = playerPicture[0].getX();
-        playerY = playerPicture[0].getY();
+        sprite.addFrame(new Picture(40, 40, "resources/images/mary1.png"));
+        sprite.addFrame(new Picture(40, 40, "resources/images/marySize.png"));
+        lowestY = 600 - (sprite.getY() + sprite.getHeight());
+
     }
 
-    private void updatePlayerPicture() {
-        /*playerPictureCounter++;
-        if (playerPictureCounter % 8 == 0) {
-            int index = playerPictureCounter % playerPicture.length;
-
-            System.out.println("INDEX: " + index);
-
-        } */
-    }
 
     private void initHealthBar() {
         healthPlayer = new Rectangle[health];
-        healthPicture = new Picture(0,30,"resources/health.png");
+        healthPicture = new Picture(0, 30, "resources/health.png");
         healthPicture.draw();
 
         healthPlayer[0] = new Rectangle(30, 30, 20, 20);
@@ -93,7 +77,7 @@ public class Player implements GameObject {
                 healthPlayer[i].delete();
                 continue;
             }
-            if (health >=3 && health <=7){
+            if (health >= 3 && health <= 7) {
                 healthPlayer[i].setColor(Color.ORANGE);
             }
             if (health < 3) {
@@ -106,15 +90,15 @@ public class Player implements GameObject {
     }
 
     public void update() {
-        updatePlayerPicture();
+        sprite.update();
         if (jumping) {
             jumpAction();
             return;
         }
 
-        if (playerPicture().getY() < lowestY) {
-            playerPicture().translate(0, 1);
-            updatePlayerPicture();
+        if (sprite.getY() < lowestY) {
+            sprite.translate(0, 1);
+            sprite.update();
             return;
         }
         down = false;
@@ -134,18 +118,13 @@ public class Player implements GameObject {
 
     }
 
-    private Picture playerPicture() {
-        int index = playerPictureCounter % playerPicture.length;
-        return playerPicture[index];
-    }
-
     private void jumpAction() {
         //System.out.println("Y:" + playerPicture.getY());
         //System.out.println("counter" + jumpCounter);
 
         jumpCounter++;
-        playerPicture().translate(0, -1);
-        updatePlayerPicture();
+        sprite.translate(0, -1);
+        sprite.update();
         if (jumpCounter >= JUMP_HEIGHT) {
             jumpCounter = 0;
             jumping = false;
@@ -154,7 +133,7 @@ public class Player implements GameObject {
     }
 
     public void jump() {
-            jumpSound.play(true);
+        jumpSound.play(true);
 
         if (!down) {
             jumping = true;
@@ -163,26 +142,26 @@ public class Player implements GameObject {
     }
 
     public void moveLeft() {
-        if (Game.isOutOfBoundsLeft(playerPicture().getX() - 10)) {
+        if (Game.isOutOfBoundsLeft(sprite.getX() - 10)) {
             return;
         }
-        playerPicture().translate(-10, 0);
-        updatePlayerPicture();
+        sprite.translate(-10, 0);
+        sprite.update();
     }
 
     public void moveRight() {
-        if (Game.isOutOfBoundsRight(playerPicture().getX() + 10)) {
+        if (Game.isOutOfBoundsRight(sprite.getX() + 10)) {
             return;
         }
-        playerPicture().translate(10, 0);
-        updatePlayerPicture();
+        sprite.translate(10, 0);
+        sprite.update();
     }
 
     public void releaseJump() {
         jumping = false;
         down = true;
         jumpCounter = 0;
-        updatePlayerPicture();
+        sprite.update();
     }
 
     public int getHealth() {
@@ -195,31 +174,29 @@ public class Player implements GameObject {
             health = 0;
         }
         updateHealthBar();
-        updatePlayerPicture();
-        System.out.println("Health: " + health);
+        sprite.update();
     }
 
-    public void addHealth(int health){
+    public void addHealth(int health) {
         this.health += health;
         updateHealthBar();
-        updatePlayerPicture();
-        System.out.println("Health: " + health);
+        sprite.update();
     }
 
     public int getWidth() {
-        return playerPicture().getWidth();
+        return sprite.getWidth();
     }
 
     public int getHeight() {
-        return playerPicture().getHeight();
+        return sprite.getHeight();
     }
 
     public int getX() {
-        return playerPicture().getX();
+        return sprite.getX();
     }
 
     public int getY() {
-        return playerPicture().getY();
+        return sprite.getY();
     }
 
 
