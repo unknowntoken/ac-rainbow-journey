@@ -1,5 +1,7 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
+import org.academiadecodigo.simplegraphics.pictures.Picture;
+
 import javax.sound.midi.Soundbank;
 
 public class Main {
@@ -10,6 +12,5 @@ public class Main {
 
 
         game.start();
-
     }
 }

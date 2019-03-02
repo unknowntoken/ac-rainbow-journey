@@ -14,6 +14,7 @@ public class Game {
     private static final int MAX_OBSTACLES = 4;
     private static final int MAX_POWERUP = 4;
 
+
     private static final long LEVEL_GOAL_0 = 300000L;
 
 
@@ -34,6 +35,15 @@ public class Game {
         frameCounter = 0;
         newPowerUpTrigger = 300;
         newObstacleTrigger = 300;
+
+        Picture start = new Picture(PADDING,PADDING,"resources/images/capa.png");
+        start.draw();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        start.delete();
 
         obstacles = new Obstacle[MAX_OBSTACLES];
         powerUps = new PowerUp[MAX_POWERUP];
@@ -56,6 +66,7 @@ public class Game {
     }
 
     public void start() {
+
         init();
         currentLevelGoal = LEVEL_GOAL_0;
 
@@ -88,11 +99,13 @@ public class Game {
     }
 
     public void loseGame(){
-
+        Picture endGame = new Picture(PADDING,PADDING,"resources/images/1.png");
+        endGame.draw();
     }
 
     public void winGame (){
-
+        //Picture endGame = new Picture(PADDING,PADDING,"resources/images/2.png");
+        //endGame.draw();
     }
 
     public boolean gameOver (){
