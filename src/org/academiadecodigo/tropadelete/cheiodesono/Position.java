@@ -13,7 +13,7 @@ public class Position {
         this.x = x;
         this.y = y;
     }
-    
+
     public void setX(int x) {
         this.x = x;
     }
@@ -35,4 +35,6 @@ public class Position {
     public int getY() {
         return y;
     }
+
+
 }
