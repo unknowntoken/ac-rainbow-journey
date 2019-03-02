@@ -10,6 +10,7 @@ import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.GameObject;
 
 public class Player implements GameObject {
     private static final int JUMP_HEIGHT = 200;
+    private static final int MAX_HEALTH = 10;
 
     private int health;
     private boolean jumping;
@@ -32,7 +33,7 @@ public class Player implements GameObject {
         jumpCounter = 0;
         down = true;
         health = 10;
-        sprite = new Sprite(50);
+        sprite = new Sprite(25);
         jumpSound = new Sound("/resources/sounds/jump.wav");
 
         initHealthBar();
@@ -179,6 +180,9 @@ public class Player implements GameObject {
 
     public void addHealth(int health) {
         this.health += health;
+        if(this.health >10){
+            this.health= 10;
+        }
         updateHealthBar();
         sprite.update();
     }
