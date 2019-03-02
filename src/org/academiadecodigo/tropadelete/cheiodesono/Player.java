@@ -27,7 +27,7 @@ public class Player {
         down = true;
         health = 10;
 
-        picture = new Picture(40, 40, "resources/images/mary1.png");
+        picture = new Picture(40, 40, "resources/images/ze.png");
         createHealthPlayer();
 
         picture.draw();
@@ -94,6 +94,10 @@ public class Player {
     public void hit(int damage) {
         health -= damage;
         System.out.println("Health: " + health);
+    }
+
+    public void addHealth(int health){
+        this.health += health;
     }
 
     public int getWidth() {
