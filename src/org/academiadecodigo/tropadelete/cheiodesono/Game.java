@@ -12,11 +12,15 @@ public class Game {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final int MAX_OBSTACLES = 4;
+    private static final int MAX_POWERUP = 4;
 
     private static final long LEVEL_GOAL_0 = 300000L;
 
 
     private Obstacle[] obstacles;
+    private PowerUp[] powerUps;
+    private int powerUpIndex;
+    private int newPowerUpTrigger;
 
     private int obstacleIndex;  //Index of the obstacle next to be spawned
     private int newObstacleTrigger; //FrameCounter % newObstacleTrigger == 0 means show another obstacle
@@ -25,11 +29,14 @@ public class Game {
     private long currentLevelGoal;
 
     private void init() {
+        powerUpIndex = 0;
         obstacleIndex = 0;
         frameCounter = 0;
+        newPowerUpTrigger = 300;
         newObstacleTrigger = 300;
 
         obstacles = new Obstacle[MAX_OBSTACLES];
+        powerUps = new PowerUp[MAX_POWERUP];
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
@@ -41,6 +48,9 @@ public class Game {
         new KeyboardListener(player);
         for (int i = 0; i < obstacles.length; i++) {
             obstacles[i] = new Obstacle(player);
+        }
+        for(int i = 0; i < powerUps.length; i++){
+            powerUps[i] = new PowerUp(player);
         }
 
     }

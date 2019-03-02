@@ -19,7 +19,7 @@ public class PowerUp {
     }
 
     public void reset() {
-        picture = new Picture(START_X, START_Y, ObstacleImage.getRandomType().getResource());
+        picture = new Picture(START_X, START_Y, PowerUpResource.getRandomType().getResource());
         show = false;
 
     }
@@ -30,7 +30,7 @@ public class PowerUp {
 
         }
         if (hitPlayer()){
-            //player.addHealth(HEALTH_POINTS);
+            player.addHealth(HEALTH_POINTS);
             hide();
             reset();
         }

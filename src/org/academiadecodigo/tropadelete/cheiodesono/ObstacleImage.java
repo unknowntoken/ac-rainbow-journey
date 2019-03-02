@@ -3,9 +3,8 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 public enum ObstacleImage {
     GOD ("resources/images/god1.png"),
     JS ("resources/images/js1.png"),
-    WS("resources/images/windos.png"),
-    VI("resources/images/vim.png"),
-    JAVA("resources/images/java.png");
+    WS("resources/images/windos.png");
+
 
     private String resource;
 

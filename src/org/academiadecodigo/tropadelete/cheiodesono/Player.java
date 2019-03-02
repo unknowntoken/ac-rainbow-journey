@@ -181,6 +181,13 @@ public class Player {
         System.out.println("Health: " + health);
     }
 
+    public void addHealth(int health){
+        this.health += health;
+        updateHealthBar();
+        updatePlayerPicture();
+        System.out.println("Health: " + health);
+    }
+
     public int getWidth() {
         return playerPicture().getWidth();
     }
