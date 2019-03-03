@@ -165,7 +165,9 @@ public class Player implements GameObject {
         sprites.update();
     }
     public void moveRightInBounds (){
-        if (Game.isOutOfBoundsRight(sprites.getX() +d 1)) {
+        int x = sprites.getX();
+        int total = x + sprites.getWidth();
+        if (Game.isOutOfBoundsRight(total)){
             return;
         }
         sprites.translate(1, 0);

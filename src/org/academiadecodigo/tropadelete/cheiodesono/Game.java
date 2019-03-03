@@ -11,27 +11,23 @@ import java.util.LinkedList;
 public class Game implements GameObjectHandler {
 
     private Rectangle rectangle;
-    private Picture backgroundImage;
-    private Picture backgroundCity;
-    private Picture translate;
-    private Picture translate2;
 
     private Player player;
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
+    private static final int MAX_MOVE_RIGHT = 200;
 
     private Sound backgroundMusic1;
     private Sound gameOverBackgroundMusic;
     private Sound gameOver;
 
-    private static final long LEVEL_GOAL_0 = 30000L;
+    private static final long LEVEL_GOAL_0 = 10000L;
 
 
     private LinkedList<GameObject> gameObjects;
-    LinkedList<GameObject> toRemove = new LinkedList<>();
+    private LinkedList<GameObject> toRemove = new LinkedList<>();
 
-    private int obstacleIndex;  //Index of the obstacle next to be spawned
     private int newObstacleTrigger; //FrameCounter % newObstacleTrigger == 0 means show another obstacle
 
     private long frameCounter;
@@ -44,13 +40,12 @@ public class Game implements GameObjectHandler {
         backgroundMusic1 = new Sound("/resources/sounds/background.wav");
         backgroundMusic1.play(true);
         backgroundMusic1.setLoop(10000);
-        obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;
         rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
 
 
-        bk = new ScrollingImage(PADDING,PADDING,"resources/testlongbackground.png");
+        bk = new ScrollingImage(PADDING, PADDING, "resources/testlongbackground.png");
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa.png");
         start.draw();
@@ -64,10 +59,10 @@ public class Game implements GameObjectHandler {
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
-        backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
-        backgroundCity = new Picture(PADDING, PADDING, "resources/pavement.png");
-        translate = new Picture(PADDING, PADDING, "resources/tracejado1.png");
-        translate2 = new Picture(PADDING, PADDING, "resources/tracejado2.png");
+        Picture backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
+        Picture backgroundCity = new Picture(PADDING, PADDING, "resources/pavement.png");
+        new Picture(PADDING, PADDING, "resources/tracejado1.png");
+        new Picture(PADDING, PADDING, "resources/tracejado2.png");
 
         backgroundImage.draw();
         backgroundCity.draw();
@@ -83,31 +78,23 @@ public class Game implements GameObjectHandler {
     }
 
 
-    public void start() {
+    void start() {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
-        int spriteCounter = 0;
-        while (true) {
+        while (!gameOver()) {
             //System.out.println("Frame number:" + frameCounter);
             //bk.drawFrom((int) frameCounter);
-
-            if (gameOver()) {
-                break;
-            }
             frameCounter++;
             player.update();
             manageNewObjects();
 
-            try {
-                for (GameObject gameObject : gameObjects) {
-                    gameObject.update();
-                    if (isOutOfBoundsLeft(gameObject.getX())) {
-                        toRemove.add(gameObject);
-                    }
+            for (GameObject gameObject : gameObjects) {
+                gameObject.update();
+                if (isOutOfBoundsLeft(gameObject.getX())) {
+                    toRemove.add(gameObject);
                 }
-            } catch (ConcurrentModificationException e) {
-                e.printStackTrace();
             }
+
 
             for (GameObject remove : toRemove) {
                 remove.hide();
@@ -124,7 +111,7 @@ public class Game implements GameObjectHandler {
 
     }
 
-    public void loseGame() {
+    private void loseGame() {
         backgroundMusic1.stop();
         gameOverBackgroundMusic.play(true);
         gameOverBackgroundMusic.setLoop(1000);
@@ -132,30 +119,33 @@ public class Game implements GameObjectHandler {
         endGame.draw();
     }
 
-    public void winGame() {
-        //Picture endGame = new Picture(PADDING,PADDING,"resources/images/2.png");
-        //endGame.draw();
+    private void winGame() {
+        Picture endGame = new Picture(PADDING, PADDING, "resources/images/2.png");
+        endGame.draw();
     }
 
-    public boolean gameOver() {
+    private boolean gameOver() {
         if (player.getHealth() <= 0) {
             gameOver.play(true);
             loseGame();
             return true;
         }
-        winGame();
 
-        return frameCounter >= currentLevelGoal;
+        if (frameCounter >= currentLevelGoal && player.getHealth() > 0) {
+            winGame();
+            return true;
+        }
+        return false;
 
     }
 
-    public void manageNewObjects() {
+    private void manageNewObjects() {
         if (frameCounter % newObstacleTrigger == 0) {
             //System.out.println("Showing new obstacle");
             newObstacleTrigger = 300 + (int) (Math.random() * 700);
 
             GameObject tempObject;
-            if (Math.random() <= .5) {
+            if (Math.random() <= .7d) {
                 tempObject = new Obstacle(player, this);
 
             } else {
@@ -169,7 +159,7 @@ public class Game implements GameObjectHandler {
         }
     }
 
-    public boolean validSpawnLocation(GameObject spawn) {
+    private boolean validSpawnLocation(GameObject spawn) {
         //Check if spawn collides with any gameobject then return not valid spawn location.
 
         if (isOutOfBounds(spawn)) {
@@ -191,7 +181,7 @@ public class Game implements GameObjectHandler {
     }
 
     public static boolean isOutOfBoundsRight(int x) {
-        return x > PADDING + WIDTH;
+        return x > (PADDING + WIDTH) - MAX_MOVE_RIGHT;
     }
 
     public static boolean isOutOfBoundsLeft(int x) {
