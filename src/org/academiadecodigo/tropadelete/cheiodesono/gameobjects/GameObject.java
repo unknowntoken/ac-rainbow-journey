@@ -8,5 +8,7 @@ public interface GameObject {
     void reset ();
     int getX ();
     int getY ();
+    int getWidth ();
+    int getHeight();
     void hit (int damage);
 }

@@ -23,7 +23,6 @@ public class PowerUp implements GameObject{
 
     public void reset() {
         picture = new Picture(START_X, START_Y, PowerUpResource.getRandomType().getResource());
-        picture.draw();
         show = true;
 
     }
@@ -51,6 +50,16 @@ public class PowerUp implements GameObject{
 
     public int getY() {
         return picture.getY();
+    }
+
+    @Override
+    public int getWidth() {
+        return picture.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return picture.getHeight();
     }
 
     @Override

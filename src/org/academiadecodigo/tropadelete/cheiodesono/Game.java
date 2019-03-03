@@ -45,8 +45,9 @@ public class Game implements GameObjectHandler {
         obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;
+        rectangle = new Rectangle(PADDING,PADDING,WIDTH,HEIGHT);
 
-        Picture start = new Picture(PADDING,PADDING,"resources/images/capa.png");
+        Picture start = new Picture(PADDING, PADDING, "resources/images/capa.png");
         start.draw();
         try {
             Thread.sleep(3000);
@@ -59,9 +60,9 @@ public class Game implements GameObjectHandler {
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
         backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
-        backgroundCity = new Picture(PADDING,PADDING,"resources/pavement.png");
-        translate = new Picture(PADDING,PADDING,"resources/tracejado1.png");
-        translate2 = new Picture(PADDING,PADDING,"resources/tracejado2.png");
+        backgroundCity = new Picture(PADDING, PADDING, "resources/pavement.png");
+        translate = new Picture(PADDING, PADDING, "resources/tracejado1.png");
+        translate2 = new Picture(PADDING, PADDING, "resources/tracejado2.png");
 
         backgroundImage.draw();
         backgroundCity.draw();
@@ -70,6 +71,7 @@ public class Game implements GameObjectHandler {
         player = new Player();
         new KeyboardListener(player);
         gameObjects = new LinkedList<>();
+        gameObjects.add(player);
         gameObjects.add(new Obstacle(player, this));
 
 
@@ -79,10 +81,9 @@ public class Game implements GameObjectHandler {
     public void start() {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
-
         while (true) {
             //System.out.println("Frame number:" + frameCounter);
-            if (gameOver()){
+            if (gameOver()) {
                 break;
             }
             frameCounter++;
@@ -115,16 +116,15 @@ public class Game implements GameObjectHandler {
 
     }
 
-    public void loseGame(){
-
+    public void loseGame() {
         backgroundMusic1.stop();
         gameOverBackgroundMusic.play(true);
         gameOverBackgroundMusic.setLoop(1000);
-        Picture endGame = new Picture(PADDING,PADDING,"resources/images/1.png");
+        Picture endGame = new Picture(PADDING, PADDING, "resources/images/1.png");
         endGame.draw();
     }
 
-    public void winGame (){
+    public void winGame() {
         //Picture endGame = new Picture(PADDING,PADDING,"resources/images/2.png");
         //endGame.draw();
     }
@@ -146,30 +146,53 @@ public class Game implements GameObjectHandler {
             //System.out.println("Showing new obstacle");
             newObstacleTrigger = 300 + (int) (Math.random() * 700);
 
-            if (Math.random() < .5) {
-                gameObjects.add(new Obstacle(player, this));
-                return;
+            GameObject tempObject;
+            if (Math.random() <= .5) {
+                tempObject = new Obstacle(player, this);
+
+            } else {
+                tempObject = new PowerUp(player, this);
             }
-            gameObjects.add(new PowerUp(player, this));
+            if (validSpawnLocation(tempObject)){
+                gameObjects.add(tempObject);
+                tempObject.show();
+            }
+
         }
     }
 
-    public static boolean isOutOfBoundsRight (int x){
+    public boolean validSpawnLocation(GameObject spawn) {
+        //Check if spawn collides with any gameobject then return not valid spawn location.
+
+        if (isOutOfBounds(spawn)) {
+            return false;
+        }
+
+        for (GameObject gm : gameObjects) {
+            if (Collision.collide(gm.getX(), gm.getY(), gm.getWidth(),
+                    gm.getHeight(), spawn.getX(), spawn.getY(), spawn.getWidth(), spawn.getHeight())) {
+                return false;
+            }
+        }
+    return true;
+    }
+
+    private boolean isOutOfBounds(GameObject object) {
+        return !Collision.collide(object.getX(), object.getY(), object.getWidth(),
+                object.getHeight(), rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
+
+    }
+
+    public static boolean isOutOfBoundsRight(int x) {
         return x > PADDING + WIDTH;
     }
+
     public static boolean isOutOfBoundsLeft(int x) {
         return x < PADDING;
-
     }
 
     @Override
     public void remove(GameObject gameObject) {
         toRemove.add(gameObject);
     }
-    // public boolean checkColision(){
-
-
-    //}
-
-
 }

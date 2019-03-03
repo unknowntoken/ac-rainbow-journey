@@ -25,9 +25,7 @@ public class Obstacle implements GameObject {
 
     public void reset() {
         picture = new Picture(START_X, START_Y, ObstacleResource.getRandomType().getResource());
-        picture.draw();
         show = true;
-
     }
 
     public void update() {
@@ -55,6 +53,16 @@ public class Obstacle implements GameObject {
 
     public int getY() {
         return picture.getY();
+    }
+
+    @Override
+    public int getWidth() {
+        return picture.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return picture.getHeight();
     }
 
     @Override
