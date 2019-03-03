@@ -37,7 +37,7 @@ public class Game implements GameObjectHandler {
     private long currentLevelGoal;
 
     private void init() {
-        gameOver = new Sound("/resources/sounds/gameover.wav");
+            gameOver = new Sound("/resources/sounds/gameover.wav");
         gameOverBackgroundMusic = new Sound("/resources/sounds/gameOverBackgroundMusic.wav");
         backgroundMusic1 = new Sound("/resources/sounds/background.wav");
         backgroundMusic1.play(true);
@@ -59,12 +59,12 @@ public class Game implements GameObjectHandler {
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
         backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
-        backgroundCity = new Picture(PADDING,PADDING,"resources/pavement.png");
+       // backgroundCity = new Picture(PADDING,PADDING,"resources/pavement.png");
         translate = new Picture(PADDING,PADDING,"resources/tracejado1.png");
         translate2 = new Picture(PADDING,PADDING,"resources/tracejado2.png");
 
         backgroundImage.draw();
-        backgroundCity.draw();
+        //backgroundCity.draw();
 
 
         player = new Player();
