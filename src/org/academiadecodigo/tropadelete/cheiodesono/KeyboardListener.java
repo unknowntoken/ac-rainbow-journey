@@ -47,7 +47,6 @@ public class KeyboardListener implements KeyboardHandler {
             case KEY_D:
                 player.moveRight();
                 break;
-
         }
     }
 
@@ -56,6 +55,12 @@ public class KeyboardListener implements KeyboardHandler {
         switch (keyboardEvent.getKey()) {
             case KEY_SPACE:
                 player.releaseJump();
+                break;
+            case KEY_A:
+                player.releaseMove();
+                break;
+            case KEY_D:
+                player.releaseMove();
                 break;
         }
 

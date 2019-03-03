@@ -14,28 +14,32 @@ public class Player implements GameObject {
     private static final int MAX_HEALTH = 10;
 
     private int health;
+
     private boolean jumping;
     private boolean down;
+
     private Sound jumpSound;
-
-
     private int jumpCounter;
-    private SpriteGroup sprites;
 
-    private Picture healthPicture;
-    private Rectangle[] healthPlayer;
+    private SpriteGroup sprites;
     private int spriteCounter;
+
+    private Rectangle[] healthPlayer;
+    private boolean movingLeft;
+    private boolean movingRight;
 
 
     public Player() {
         jumpCounter = 0;
         down = true;
-        health = 10;
+        health = MAX_HEALTH;
+        jumping = false;
+        spriteCounter = 0;
+        movingLeft = false;
+        movingRight = false;
         jumpSound = new Sound("/resources/sounds/jump.wav");
         initHealthBar();
         initPlayerPicture();
-        this.jumping = false;
-        spriteCounter = 0;
     }
 
     private void initPlayerPicture() {
@@ -67,7 +71,7 @@ public class Player implements GameObject {
 
     private void initHealthBar() {
         healthPlayer = new Rectangle[health];
-        healthPicture = new Picture(30, 50, "resources/health.png");
+        Picture healthPicture = new Picture(30, 50, "resources/health.png");
         healthPicture.draw();
 
         healthPlayer[0] = new Rectangle(30, 30, 20, 20);
@@ -108,6 +112,12 @@ public class Player implements GameObject {
 
 
     public void update() {
+        if (movingRight){
+            moveRightInBounds();
+        }
+        if (movingLeft){
+            moveLeftInBounds();
+        }
         if (spriteCounter++ > 1000) {
             sprites.nextSprite();
             spriteCounter = 0;
@@ -128,9 +138,6 @@ public class Player implements GameObject {
 
 
     private void jumpAction() {
-        //System.out.println("Y:" + playerPicture.getY());
-        //System.out.println("counter" + jumpCounter);
-
         jumpCounter++;
         sprites.translate(0, -1);
         sprites.update();
@@ -150,27 +157,39 @@ public class Player implements GameObject {
         }
     }
 
-    public void moveLeft() {
-        if (Game.isOutOfBoundsLeft(sprites.getX() - 10)) {
+    public void moveLeftInBounds (){
+        if (Game.isOutOfBoundsLeft(sprites.getX() - 1)) {
             return;
         }
-        sprites.translate(-10, 0);
+        sprites.translate(-1, 0);
         sprites.update();
+    }
+    public void moveRightInBounds (){
+        if (Game.isOutOfBoundsRight(sprites.getX() +d 1)) {
+            return;
+        }
+        sprites.translate(1, 0);
+        sprites.update();
+    }
+    public void releaseMove (){
+        movingRight = false;
+        movingLeft = false;
+    }
+    public void moveLeft() {
+        movingRight = false;
+        movingLeft = true;
     }
 
     public void moveRight() {
-        if (Game.isOutOfBoundsRight(sprites.getX() + 10)) {
-            return;
-        }
-        sprites.translate(10, 0);
-        sprites.update();
+        movingRight = true;
+        movingLeft = false;
     }
 
     public void releaseJump() {
         jumping = false;
         down = true;
         jumpCounter = 0;
-        sprites.update();
+        //sprites.update();
     }
 
     public int getHealth() {
