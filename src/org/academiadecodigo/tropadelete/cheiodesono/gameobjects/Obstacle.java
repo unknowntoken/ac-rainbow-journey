@@ -9,7 +9,7 @@ public class Obstacle implements GameObject {
     private Player player;
     private Picture picture;
     private Sound impact;
-    private static final int START_X = 800;
+    private static final int START_X = 700;
     private static final int START_Y = 500;
     private static final int HIT_POINTS = 1;
     private static final int DEAD_FRAMES = 50;

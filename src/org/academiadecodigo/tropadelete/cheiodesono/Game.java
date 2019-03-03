@@ -2,6 +2,7 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 
 import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
+import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.*;
 
@@ -21,6 +22,8 @@ public class Game implements GameObjectHandler {
     private Sound backgroundMusic1;
     private Sound gameOverBackgroundMusic;
     private Sound gameOver;
+
+    private Text framesLeft;
 
     private static final long LEVEL_GOAL_0 = 10000L;
 
@@ -43,6 +46,7 @@ public class Game implements GameObjectHandler {
         frameCounter = 0;
         newObstacleTrigger = 300;
         rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
+
 
 
         bk = new ScrollingImage(PADDING, PADDING, "resources/testlongbackground.png");
@@ -81,7 +85,10 @@ public class Game implements GameObjectHandler {
     void start() {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
+        framesLeft = new Text(400,20,"");
         while (!gameOver()) {
+            framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
+            framesLeft.draw();
             //System.out.println("Frame number:" + frameCounter);
             //bk.drawFrom((int) frameCounter);
             frameCounter++;
