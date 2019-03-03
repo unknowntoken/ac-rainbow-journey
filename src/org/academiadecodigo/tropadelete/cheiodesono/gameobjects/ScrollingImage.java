@@ -19,7 +19,7 @@ public class ScrollingImage extends Picture {
 
     private JLabel label = new JLabel();
     private String source;
-    private Rectangle box =new Rectangle(800,600);
+    private Rectangle box =new Rectangle(70,50);
     private double x;
     private double y;
     private double xGrow;
@@ -50,13 +50,6 @@ public class ScrollingImage extends Picture {
                 }
             }
 
-            //image = new BufferedImage(800,600,2);
-            //image.setData(getSubimageAt(0).getData());
-            //box.translate(0,0);
-            //image.setData(largeImage.getData(box));
-
-            //this.label.setIcon(new ImageIcon(this.image));
-            //this.label.setText("");
         } catch (Exception var3) {
             this.image = null;
             this.label.setIcon((Icon) null);
@@ -168,24 +161,15 @@ public class ScrollingImage extends Picture {
     }
 
     public void drawFrom (int positionX){
-        box.translate(1,0);
-        Raster raster = largeImage.getData(box);
-        WritableRaster wr = raster.createCompatibleWritableRaster();
-        wr.setRect(raster);
-        wr.setDataElements(0,0,raster);
         delete();
 
-        image = new BufferedImage(largeImage.getColorModel(),wr,largeImage.isAlphaPremultiplied(),null);
+        image = largeImage.getSubimage(positionX,0,FRAME_WIDTH,FRAME_HEIGHT);
 
         this.label.setIcon(new ImageIcon(this.image));
         this.label.setText("");
         draw();
     }
 
-    public BufferedImage getSubimageAt (int x){
-        x %= largeImage.getWidth();
-        return largeImage.getSubimage(x,0,800,600);
-    }
     public void draw() {
         Canvas.getInstance().show(this);
     }

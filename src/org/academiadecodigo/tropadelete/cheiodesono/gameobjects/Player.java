@@ -33,7 +33,7 @@ public class Player implements GameObject {
         jumpCounter = 0;
         down = true;
         health = 10;
-        sprite = new Sprite(25);
+        sprite = new Sprite(100);
         jumpSound = new Sound("/resources/sounds/jump.wav");
 
         initHealthBar();

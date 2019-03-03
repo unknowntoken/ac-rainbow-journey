@@ -88,6 +88,7 @@ public class Game implements GameObjectHandler {
         currentLevelGoal = LEVEL_GOAL_0;
         while (true) {
             //System.out.println("Frame number:" + frameCounter);
+            //bk.drawFrom((int) frameCounter);
             if (gameOver()) {
                 break;
             }
@@ -112,7 +113,6 @@ public class Game implements GameObjectHandler {
             }
             toRemove.clear();
 
-            bk.drawFrom((int) frameCounter);
             try {
                 Thread.sleep(3);
             } catch (InterruptedException e) {
