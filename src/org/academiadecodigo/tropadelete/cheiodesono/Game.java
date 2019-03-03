@@ -1,5 +1,6 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.*;
@@ -19,12 +20,12 @@ public class Game implements GameObjectHandler {
     private static final int PADDING = 10;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
-    private static final int MAX_OBSTACLES = 4;
+
     private Sound backgroundMusic1;
     private Sound gameOverBackgroundMusic;
     private Sound gameOver;
 
-    private static final long LEVEL_GOAL_0 = 300000L;
+    private static final long LEVEL_GOAL_0 = 30000L;
 
 
     private LinkedList<GameObject> gameObjects;
@@ -35,6 +36,7 @@ public class Game implements GameObjectHandler {
 
     private long frameCounter;
     private long currentLevelGoal;
+    private ScrollingImage bk;
 
     private void init() {
         gameOver = new Sound("/resources/sounds/gameover.wav");
@@ -45,7 +47,10 @@ public class Game implements GameObjectHandler {
         obstacleIndex = 0;
         frameCounter = 0;
         newObstacleTrigger = 300;
-        rectangle = new Rectangle(PADDING,PADDING,WIDTH,HEIGHT);
+        rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
+
+
+        bk = new ScrollingImage(PADDING,PADDING,"resources/testlongbackground.png");
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa.png");
         start.draw();
@@ -86,6 +91,7 @@ public class Game implements GameObjectHandler {
             if (gameOver()) {
                 break;
             }
+            bk.drawFrom((int) frameCounter);
             frameCounter++;
             player.update();
             manageNewObjects();
@@ -153,7 +159,7 @@ public class Game implements GameObjectHandler {
             } else {
                 tempObject = new PowerUp(player, this);
             }
-            if (validSpawnLocation(tempObject)){
+            if (validSpawnLocation(tempObject)) {
                 gameObjects.add(tempObject);
                 tempObject.show();
             }
@@ -174,13 +180,12 @@ public class Game implements GameObjectHandler {
                 return false;
             }
         }
-    return true;
+        return true;
     }
 
     private boolean isOutOfBounds(GameObject object) {
         return !Collision.collide(object.getX(), object.getY(), object.getWidth(),
                 object.getHeight(), rectangle.getX(), rectangle.getY(), rectangle.getWidth(), rectangle.getHeight());
-
     }
 
     public static boolean isOutOfBoundsRight(int x) {
