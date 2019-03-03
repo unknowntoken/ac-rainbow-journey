@@ -9,37 +9,49 @@ public class Obstacle implements GameObject {
     private Player player;
     private Picture picture;
     private Sound impact;
-    private boolean show;
     private static final int START_X = 800;
     private static final int START_Y = 500;
     private static final int HIT_POINTS = 1;
+    private static final int DEAD_FRAMES = 50;
+    private int deadCounter;
+    private boolean dead;
     private GameObjectHandler gameObjectHandler;
 
 
     public Obstacle(Player player, GameObjectHandler gameObjectHandler) {
         this.player = player;
         this.gameObjectHandler = gameObjectHandler;
+        deadCounter = 0;
         reset();
         impact = new Sound("/resources/sounds/impact.wav");
     }
 
     public void reset() {
         picture = new Picture(START_X, START_Y, ObstacleResource.getRandomType().getResource());
-        show = true;
     }
 
     public void update() {
-        if (show) {
-            picture.translate(-1, 0);
-
-
+        if (dead) {
+            if (deadCounter >= DEAD_FRAMES) {
+                hide();
+                gameObjectHandler.remove(this);
+            }
+            deadCounter++;
+            return;
         }
-        if (hitPlayer()){
+
+        if (hitPlayer()) {
             impact.play(true);
             player.hit(HIT_POINTS);
-            hide();
-            gameObjectHandler.remove(this);
+
+            picture.delete();
+            picture = new Picture(picture.getX(), picture.getY(), "resources/images/bang.png");
+            dead = true;
+            picture.draw();
+            return;
         }
+
+        picture.translate(-1, 0);
     }
 
     private boolean hitPlayer() {
@@ -72,12 +84,9 @@ public class Obstacle implements GameObject {
 
     public void hide() {
         picture.delete();
-        //gameObjectHandler.remove(this);
-        show = false;
     }
 
     public void show() {
         picture.draw();
-        show = true;
     }
 }

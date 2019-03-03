@@ -50,7 +50,7 @@ public class Game implements GameObjectHandler {
         rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
 
 
-        bk = new ScrollingImage(PADDING,PADDING,"resources/testlongbackground.png");
+        //bk = new ScrollingImage(PADDING,PADDING,"resources/testlongbackground.png");
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa.png");
         start.draw();
@@ -91,7 +91,7 @@ public class Game implements GameObjectHandler {
             if (gameOver()) {
                 break;
             }
-            bk.drawFrom((int) frameCounter);
+            //bk.drawFrom((int) frameCounter);
             frameCounter++;
             player.update();
             manageNewObjects();
