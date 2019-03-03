@@ -9,7 +9,7 @@ public class Sprite {
     private LinkedList<Picture> pictures;
     private int delay;
     private int index;
-    private int delayCounter = 0;
+    private int delayCounter;
 
     public Sprite(int delay) {
         pictures = new LinkedList<>();
@@ -46,6 +46,9 @@ public class Sprite {
         }
     }
 
+    public int lowerBound (){
+        return 600 - (pictures.get(index).getY() - pictures.get(index).getHeight());
+    }
     private int nextIndex() {
         return (index + 1) % pictures.size();
     }
@@ -64,5 +67,8 @@ public class Sprite {
 
     public int getHeight() {
         return pictures.get(index).getHeight();
+    }
+    public Picture getCurrentPicture (){
+        return pictures.get(index);
     }
 }

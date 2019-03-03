@@ -5,7 +5,8 @@ import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.Game;
 import org.academiadecodigo.tropadelete.cheiodesono.Sound;
-import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.GameObject;
+
+import java.util.LinkedList;
 
 
 public class Player implements GameObject {
@@ -19,35 +20,44 @@ public class Player implements GameObject {
 
 
     private int jumpCounter;
-    private Sprite sprite;
+    private SpriteGroup sprites;
 
     private Picture healthPicture;
-
     private Rectangle[] healthPlayer;
 
-
-    private int lowestY;
 
 
     public Player() {
         jumpCounter = 0;
         down = true;
         health = 10;
-        sprite = new Sprite(100);
         jumpSound = new Sound("/resources/sounds/jump.wav");
-
         initHealthBar();
         initPlayerPicture();
-
-
         this.jumping = false;
     }
 
     private void initPlayerPicture() {
 
-        sprite.addFrame(new Picture(40, 40, "resources/images/mary1.png"));
-        sprite.addFrame(new Picture(40, 40, "resources/images/marySize.png"));
-        lowestY = 600 - (sprite.getY() + sprite.getHeight());
+        sprites = new SpriteGroup();
+        sprites.add(new Sprite(100));
+        sprites.add(new Sprite(100));
+        sprites.add(new Sprite(100));
+        sprites.add(new Sprite(100));
+
+
+        //MARY
+        sprites.get(0).addFrame(new Picture(40, 40, "resources/images/mary1.png"));
+        sprites.get(0).addFrame(new Picture(40, 40, "resources/images/marySize.png"));
+
+        //KEVIN
+        sprites.get(1).addFrame(new Picture(40, 40, "resources/images/kevin.png"));
+        sprites.get(1).addFrame(new Picture(40, 40, "resources/images/kevin2.png"));
+
+        //RUI
+
+        //ZE
+        sprites.nextSprite();
 
     }
 
@@ -90,16 +100,18 @@ public class Player implements GameObject {
 
     }
 
+
     public void update() {
-        sprite.update();
+        sprites.update();
         if (jumping) {
             jumpAction();
             return;
         }
 
-        if (sprite.getY() < lowestY) {
-            sprite.translate(0, 1);
-            sprite.update();
+        System.out.println("spritY: " + sprites.getY());
+        if (sprites.getY() < sprites.lowerBound()) {
+            sprites.translate(0, 1);
+            sprites.update();
             return;
         }
         down = false;
@@ -124,8 +136,8 @@ public class Player implements GameObject {
         //System.out.println("counter" + jumpCounter);
 
         jumpCounter++;
-        sprite.translate(0, -1);
-        sprite.update();
+        sprites.translate(0, -1);
+        sprites.update();
         if (jumpCounter >= JUMP_HEIGHT) {
             jumpCounter = 0;
             jumping = false;
@@ -143,26 +155,26 @@ public class Player implements GameObject {
     }
 
     public void moveLeft() {
-        if (Game.isOutOfBoundsLeft(sprite.getX() - 10)) {
+        if (Game.isOutOfBoundsLeft(sprites.getX() - 10)) {
             return;
         }
-        sprite.translate(-10, 0);
-        sprite.update();
+        sprites.translate(-10, 0);
+        sprites.update();
     }
 
     public void moveRight() {
-        if (Game.isOutOfBoundsRight(sprite.getX() + 10)) {
+        if (Game.isOutOfBoundsRight(sprites.getX() + 10)) {
             return;
         }
-        sprite.translate(10, 0);
-        sprite.update();
+        sprites.translate(10, 0);
+        sprites.update();
     }
 
     public void releaseJump() {
         jumping = false;
         down = true;
         jumpCounter = 0;
-        sprite.update();
+        sprites.update();
     }
 
     public int getHealth() {
@@ -175,7 +187,7 @@ public class Player implements GameObject {
             health = 0;
         }
         updateHealthBar();
-        sprite.update();
+        sprites.update();
     }
 
     public void addHealth(int health) {
@@ -184,23 +196,23 @@ public class Player implements GameObject {
             this.health= 10;
         }
         updateHealthBar();
-        sprite.update();
+        sprites.update();
     }
 
     public int getWidth() {
-        return sprite.getWidth();
+        return sprites.getWidth();
     }
 
     public int getHeight() {
-        return sprite.getHeight();
+        return sprites.getHeight();
     }
 
     public int getX() {
-        return sprite.getX();
+        return sprites.getX();
     }
 
     public int getY() {
-        return sprite.getY();
+        return sprites.getY();
     }
 
 
