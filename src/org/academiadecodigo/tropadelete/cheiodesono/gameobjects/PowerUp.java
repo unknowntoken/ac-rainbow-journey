@@ -8,7 +8,9 @@ public class PowerUp implements GameObject{
     private Player player;
     private Picture picture;
 
+    private boolean dead;
     private boolean show;
+    private int deadCounter;
     private static final int START_X = 800;
     private static final int START_Y = 500;
     private static final int HEALTH_POINTS = 1;
@@ -18,6 +20,8 @@ public class PowerUp implements GameObject{
     public PowerUp(Player player, GameObjectHandler gameObjectHandler) {
         this.player = player;
         this.gameObjectHandler = gameObjectHandler;
+        dead = false;
+        deadCounter = 0;
         reset();
     }
 
@@ -28,14 +32,24 @@ public class PowerUp implements GameObject{
     }
 
     public void update() {
+        if (dead){
+            if(deadCounter >= 100){
+                picture.delete();
+                gameObjectHandler.remove(this);
+            }
+            deadCounter++;
+            return;
+        }
         if (show) {
             picture.translate(-1, 0);
 
         }
         if (hitPlayer()){
             player.addHealth(HEALTH_POINTS);
-            hide();
-            gameObjectHandler.remove(this);
+            picture.delete();
+            picture = new Picture(picture.getX(), picture.getY()-100, "resources/images/powerup.png");
+            picture.draw();
+            dead = true;
         }
     }
 

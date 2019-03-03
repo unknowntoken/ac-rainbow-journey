@@ -77,7 +77,7 @@ public class Game implements GameObjectHandler {
         new KeyboardListener(player);
         gameObjects = new LinkedList<>();
         gameObjects.add(player);
-        gameObjects.add(new Obstacle(player, this));
+        //gameObjects.add(new Obstacle(player, this));
 
 
     }

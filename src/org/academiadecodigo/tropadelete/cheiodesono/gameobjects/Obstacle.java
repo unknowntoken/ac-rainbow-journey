@@ -45,7 +45,7 @@ public class Obstacle implements GameObject {
             player.hit(HIT_POINTS);
 
             picture.delete();
-            picture = new Picture(picture.getX(), picture.getY(), "resources/images/bang.png");
+            picture = new Picture(picture.getX(), picture.getY()-30, "resources/images/bang.png");
             dead = true;
             picture.draw();
             return;
