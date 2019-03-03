@@ -68,7 +68,7 @@ public class Player implements GameObject {
 
     private void initHealthBar() {
         healthPlayer = new Rectangle[health];
-        healthPicture = new Picture(0, 30, "resources/health.png");
+        healthPicture = new Picture(30, 50, "resources/health.png");
         healthPicture.draw();
 
         healthPlayer[0] = new Rectangle(30, 30, 20, 20);
@@ -82,8 +82,6 @@ public class Player implements GameObject {
             healthPlayer[i].draw();
             healthPlayer[i].fill();
         }
-
-
     }
 
     private void updateHealthBar() {
