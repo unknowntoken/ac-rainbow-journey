@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.net.URL;
 
@@ -18,7 +19,7 @@ public class ScrollingImage extends Picture {
 
     private JLabel label = new JLabel();
     private String source;
-    private Rectangle box =new Rectangle(40,40);
+    private Rectangle box =new Rectangle(800,600);
     private double x;
     private double y;
     private double xGrow;
@@ -167,8 +168,15 @@ public class ScrollingImage extends Picture {
     }
 
     public void drawFrom (int positionX){
-        image = new BufferedImage(800,600,2);
-        image = largeImage.getSubimage(positionX%(largeImage.getWidth()-1),0,FRAME_WIDTH,FRAME_HEIGHT);
+        box.translate(1,0);
+        Raster raster = largeImage.getData(box);
+        WritableRaster wr = raster.createCompatibleWritableRaster();
+        wr.setRect(raster);
+        wr.setDataElements(0,0,raster);
+        delete();
+
+        image = new BufferedImage(largeImage.getColorModel(),wr,largeImage.isAlphaPremultiplied(),null);
+
         this.label.setIcon(new ImageIcon(this.image));
         this.label.setText("");
         draw();
