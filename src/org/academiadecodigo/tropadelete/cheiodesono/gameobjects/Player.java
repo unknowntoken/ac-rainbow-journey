@@ -24,6 +24,7 @@ public class Player implements GameObject {
 
     private Picture healthPicture;
     private Rectangle[] healthPlayer;
+    private int spriteCounter;
 
 
 
@@ -35,6 +36,7 @@ public class Player implements GameObject {
         initHealthBar();
         initPlayerPicture();
         this.jumping = false;
+        spriteCounter =0;
     }
 
     private void initPlayerPicture() {
@@ -55,9 +57,11 @@ public class Player implements GameObject {
         sprites.get(1).addFrame(new Picture(40, 40, "resources/images/kevin2.png"));
 
         //RUI
-
+        sprites.get(2).addFrame(new Picture(40, 40, "resources/images/rui.png"));
+        sprites.get(2).addFrame(new Picture(40, 40, "resources/images/rui2.png"));
         //ZE
-        sprites.nextSprite();
+        sprites.get(3).addFrame(new Picture(40, 40, "resources/images/ze.png"));
+        sprites.get(3).addFrame(new Picture(40, 40, "resources/images/ze1.png"));
 
     }
 
@@ -102,13 +106,16 @@ public class Player implements GameObject {
 
 
     public void update() {
+        if (spriteCounter++ > 1000){
+            sprites.nextSprite();
+            spriteCounter=0;
+        }
         sprites.update();
         if (jumping) {
             jumpAction();
             return;
         }
 
-        System.out.println("spritY: " + sprites.getY());
         if (sprites.getY() < sprites.lowerBound()) {
             sprites.translate(0, 1);
             sprites.update();

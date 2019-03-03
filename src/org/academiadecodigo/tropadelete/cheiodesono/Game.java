@@ -86,9 +86,11 @@ public class Game implements GameObjectHandler {
     public void start() {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
+        int spriteCounter = 0;
         while (true) {
             //System.out.println("Frame number:" + frameCounter);
             //bk.drawFrom((int) frameCounter);
+
             if (gameOver()) {
                 break;
             }

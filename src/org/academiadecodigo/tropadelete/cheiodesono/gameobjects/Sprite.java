@@ -45,7 +45,13 @@ public class Sprite {
             pictures.get(index).translate(x, y);
         }
     }
+    public void show (){
+        getCurrentPicture().draw();
+    }
 
+    public void hide (){
+        getCurrentPicture().delete();
+    }
     public int lowerBound (){
         return 600 - (pictures.get(index).getY() - pictures.get(index).getHeight());
     }

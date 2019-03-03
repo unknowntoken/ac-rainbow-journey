@@ -23,8 +23,20 @@ public class SpriteGroup {
 
     public void nextSprite() {
         if (!sprites.isEmpty()) {
-            index = (index + 1) % sprites.size();
+            int visableX = getX();
+            int visableY = getY();
+            currentSprite().hide();
+
+            index++;
+            if (index >= sprites.size()){
+                index=0;
+            }
+            int afterX = getX();
+            int afterY = getY();
+            currentSprite().translate(visableX - afterX,visableY-afterY);
+            currentSprite().show();
         }
+
     }
 
     public void setIndex(int index) {
