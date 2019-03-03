@@ -27,7 +27,6 @@ public class Player implements GameObject {
     private int spriteCounter;
 
 
-
     public Player() {
         jumpCounter = 0;
         down = true;
@@ -36,7 +35,7 @@ public class Player implements GameObject {
         initHealthBar();
         initPlayerPicture();
         this.jumping = false;
-        spriteCounter =0;
+        spriteCounter = 0;
     }
 
     private void initPlayerPicture() {
@@ -90,6 +89,10 @@ public class Player implements GameObject {
                 healthPlayer[i].delete();
                 continue;
             }
+            if (health > 7) {
+                healthPlayer[i].setColor((Color.GREEN));
+            }
+
             if (health >= 3 && health <= 7) {
                 healthPlayer[i].setColor(Color.ORANGE);
             }
@@ -98,15 +101,16 @@ public class Player implements GameObject {
             }
             healthPlayer[i].draw();
             healthPlayer[i].fill();
+
         }
 
     }
 
 
     public void update() {
-        if (spriteCounter++ > 1000){
+        if (spriteCounter++ > 1000) {
             sprites.nextSprite();
-            spriteCounter=0;
+            spriteCounter = 0;
         }
         sprites.update();
         if (jumping) {
@@ -122,19 +126,6 @@ public class Player implements GameObject {
         down = false;
     }
 
-    @Override
-    public void show() {
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void reset() {
-
-    }
 
     private void jumpAction() {
         //System.out.println("Y:" + playerPicture.getY());
@@ -197,8 +188,8 @@ public class Player implements GameObject {
 
     public void addHealth(int health) {
         this.health += health;
-        if(this.health >10){
-            this.health= 10;
+        if (this.health > 10) {
+            this.health = 10;
         }
         updateHealthBar();
         sprites.update();
@@ -218,6 +209,20 @@ public class Player implements GameObject {
 
     public int getY() {
         return sprites.getY();
+    }
+
+    @Override
+    public void show() {
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void reset() {
+
     }
 
 
