@@ -17,7 +17,8 @@ public class Player implements GameObject {
     private boolean jumping;
     private boolean down;
     private Sound jumpSound;
-
+    private Sound footSteps;
+    private Sound ouch;
 
     private int jumpCounter;
     private SpriteGroup sprites;
@@ -33,6 +34,8 @@ public class Player implements GameObject {
         down = true;
         health = 10;
         jumpSound = new Sound("/resources/sounds/jump.wav");
+        footSteps = new Sound("/resources/sounds/footstep.wav");
+        ouch = new Sound("/resources/sounds/gettinghit.wav");
         initHealthBar();
         initPlayerPicture();
         this.jumping = false;
@@ -162,6 +165,7 @@ public class Player implements GameObject {
     }
 
     public void moveLeft() {
+        footSteps.play(true);
         if (Game.isOutOfBoundsLeft(sprites.getX() - 10)) {
             return;
         }
@@ -170,6 +174,7 @@ public class Player implements GameObject {
     }
 
     public void moveRight() {
+        footSteps.play(true);
         if (Game.isOutOfBoundsRight(sprites.getX() + 10)) {
             return;
         }
@@ -189,6 +194,7 @@ public class Player implements GameObject {
     }
 
     public void hit(int damage) {
+        ouch.play(true);
         health -= damage;
         if (health < 0) {
             health = 0;
