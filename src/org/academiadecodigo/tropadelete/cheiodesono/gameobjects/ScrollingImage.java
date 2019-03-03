@@ -168,18 +168,9 @@ public class ScrollingImage extends Picture {
 
     public void drawFrom (int positionX){
         image = new BufferedImage(800,600,2);
-        //image.setData(getSubimageAt(0).getData());
-        //box.translate(0,0);
         image = largeImage.getSubimage(positionX%(largeImage.getWidth()-1),0,FRAME_WIDTH,FRAME_HEIGHT);
-
         this.label.setIcon(new ImageIcon(this.image));
         this.label.setText("");
-        //box.translate(1,0);
-        //image.setData(largeImage.getData(box));
-        //positionX = positionX%largeImage.getWidth();
-
-      //  image.setData(getSubimageAt(positionX).getData());
-        //Canvas.getInstance().show(image);
         draw();
     }
 
