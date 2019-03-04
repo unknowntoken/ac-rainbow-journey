@@ -36,6 +36,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
 
     private LinkedList<GameObject> gameObjects;
     private LinkedList<GameObject> toRemove = new LinkedList<>();
+    private LinkedList<TimedSprite> timedSprites = new LinkedList<>();
 
     private int newObstacleTrigger; //FrameCounter % newObstacleTrigger == 0 means show another obstacle
 
@@ -121,6 +122,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
             frameCounter++;
             player.update();
             manageNewObjects();
+            handleNewSprites ();
 
             for (GameObject gameObject : gameObjects) {
                 gameObject.update();
@@ -129,6 +131,11 @@ public class Game implements GameObjectHandler, KeyboardHandler {
                 }
             }
 
+            for (TimedSprite sprite : timedSprites) {
+                sprite.update();
+                sprite.show();
+
+            }
 
             for (GameObject remove : toRemove) {
                 remove.hide();
@@ -192,13 +199,21 @@ public class Game implements GameObjectHandler, KeyboardHandler {
             if (validSpawnLocation(tempObject)) {
                 gameObjects.add(tempObject);
                 tempObject.show();
+
             }
         }
     }
 
-    private long spriteTrigger = 200;
+    private long spriteTrigger = 500;
     private void handleNewSprites (){
+        TimedSprite tempObject;
         if (frameCounter % spriteTrigger == 0){
+            tempObject =  new TimedSprite(4,4,-1);
+            tempObject.addFrame(new Picture(600,200,"resources/homes/home12.png"));
+            //tempObject.addFrame(new Picture(600,400,"resources/homes/home12.png"));
+            System.out.println("new sprite");
+            timedSprites.add(tempObject);
+            tempObject.show();
 
 
         }

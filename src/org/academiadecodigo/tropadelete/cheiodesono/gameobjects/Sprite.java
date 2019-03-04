@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.pictures.Picture;
 
 import java.util.LinkedList;
 
-public class Sprite {
+public class Sprite implements GameObject{
 
     private LinkedList<Picture> pictures;
     private int delay;
@@ -22,6 +22,7 @@ public class Sprite {
         pictures.add(frame);
     }
 
+    @Override
     public void update() {
         delayCounter++;
         if (!pictures.isEmpty() && delayCounter > delay) {
@@ -52,6 +53,12 @@ public class Sprite {
     public void hide (){
         getCurrentPicture().delete();
     }
+
+    @Override
+    public void reset() {
+
+    }
+
     public int lowerBound (){
         return 600 - (pictures.get(index).getY() - pictures.get(index).getHeight());
     }
@@ -74,6 +81,12 @@ public class Sprite {
     public int getHeight() {
         return pictures.get(index).getHeight();
     }
+
+    @Override
+    public void hit(int damage) {
+
+    }
+
     public Picture getCurrentPicture (){
         return pictures.get(index);
     }
