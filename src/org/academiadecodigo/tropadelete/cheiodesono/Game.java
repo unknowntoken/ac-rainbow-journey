@@ -27,7 +27,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
 
     private Text framesLeft;
 
-    private static final long LEVEL_GOAL_0 = 5000L;
+    private static final long LEVEL_GOAL_0 = 10000L;
     private Sound winJingle;
     private Sound winMusic;
     private boolean gameStarted;
