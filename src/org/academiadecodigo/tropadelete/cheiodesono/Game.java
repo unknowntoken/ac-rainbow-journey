@@ -9,6 +9,7 @@ import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Game implements GameObjectHandler, KeyboardHandler {
@@ -40,7 +41,9 @@ public class Game implements GameObjectHandler, KeyboardHandler {
 
     private long frameCounter;
     private long currentLevelGoal;
-    private Picture movingBackground;
+
+
+    private ParallaxImageSet movingBackground;
 
     private void init() {
         gameStarted = false;
@@ -78,18 +81,20 @@ public class Game implements GameObjectHandler, KeyboardHandler {
 
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
-        Picture backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
+        //Picture backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
 
-        Picture backgroundCity = new Picture(PADDING, PADDING, "resources/pavement.png");
+        //Picture backgroundCity = new Picture(PADDING, PADDING, "resources/pavement.png");
         new Picture(PADDING, PADDING, "resources/tracejado1.png");
         new Picture(PADDING, PADDING, "resources/tracejado2.png");
 
-        backgroundImage.draw();
-        backgroundCity.draw();
+        //backgroundImage.draw();
+        //backgroundCity.draw();
 
-        movingBackground = new Picture(0, 0, "resources/images/clouds.jpeg");
-
-        movingBackground.draw();
+        movingBackground = new ParallaxImageSet();
+        movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/clouds.jpeg"),5,-.1));
+        movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/background1.png"),3,-.5));
+        movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/background2.png"),1,-.5));
+        movingBackground.showAll();
 
         player = new Player();
         new KeyboardListener(player);
@@ -108,8 +113,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
 
         framesLeft = new Text(730,40,"");
         while (!gameOver()) {
-        movingBackground.translate(-.1,0);
-        movingBackground.draw();
+            movingBackground.update();
             framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
             framesLeft.draw();
             //System.out.println("Frame number:" + frameCounter);
