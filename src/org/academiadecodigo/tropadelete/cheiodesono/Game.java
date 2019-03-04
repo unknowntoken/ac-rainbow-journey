@@ -187,10 +187,10 @@ public class Game implements GameObjectHandler, KeyboardHandler {
     private void manageNewObjects() {
         if (frameCounter % newObstacleTrigger == 0) {
             //System.out.println("Showing new obstacle");
-            newObstacleTrigger = 300 + (int) (Math.random() * 700);
+            newObstacleTrigger = 100 + (int) (Math.random() * 500);
 
             GameObject tempObject;
-            if (Math.random() <= .7d) {
+            if (Math.random() <= .90) {
                 tempObject = new Obstacle(player, this);
 
             } else {
@@ -209,11 +209,11 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         TimedSprite tempObject;
         if (frameCounter % spriteTrigger == 0){
             tempObject =  new TimedSprite(4,4,-1);
-            tempObject.addFrame(new Picture(600,200,"resources/homes/home12.png"));
+            tempObject.addFrame(new Picture(600,200,"resources/objects/streetLight.png"));
             //tempObject.addFrame(new Picture(600,400,"resources/homes/home12.png"));
             System.out.println("new sprite");
-            timedSprites.add(tempObject);
-            tempObject.show();
+            //timedSprites.add(tempObject);
+            //tempObject.show();
 
 
         }
