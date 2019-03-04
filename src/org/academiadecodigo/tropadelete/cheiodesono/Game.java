@@ -144,13 +144,13 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         backgroundMusic1.stop();
         gameOverBackgroundMusic.play(true);
         gameOverBackgroundMusic.setLoop(1000);
-        Picture endGame = new Picture(PADDING, PADDING, "resources/images/1.png");
+        Picture endGame = new Picture(PADDING, PADDING, "resources/images/endgame.png");
         endGame.draw();
     }
 
     private void winGame() {
         backgroundMusic1.stop();
-        Picture endGame = new Picture(PADDING, PADDING, "resources/images/2.png");
+        Picture endGame = new Picture(PADDING, PADDING, "resources/images/4.png");
         endGame.draw();
         winJingle.play(true);
         winMusic.play(true);
