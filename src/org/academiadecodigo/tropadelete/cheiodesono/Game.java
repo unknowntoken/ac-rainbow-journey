@@ -76,7 +76,7 @@ public class Game implements GameObjectHandler {
         backgroundImage.draw();
         backgroundCity.draw();
 
-        movingBackground = new Picture(PADDING, PADDING, "resources/testlongbackground.png");
+        movingBackground = new Picture(100, 0, "resources/images/clouds.jpg");
         movingBackground.draw();
 
         player = new Player();
