@@ -85,7 +85,9 @@ public class Game implements GameObjectHandler {
     void start() {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
-        framesLeft = new Text(400,20,"");
+        new Text(710,20,"Time left").draw();
+
+        framesLeft = new Text(730,40,"");
         while (!gameOver()) {
             framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
             framesLeft.draw();
