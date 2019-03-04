@@ -57,10 +57,10 @@ public class KeyboardListener implements KeyboardHandler {
                 player.releaseJump();
                 break;
             case KEY_A:
-                player.releaseMove();
+                //player.releaseMove();
                 break;
             case KEY_D:
-                player.releaseMove();
+                //player.releaseMove();
                 break;
         }
 

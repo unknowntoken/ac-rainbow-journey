@@ -20,7 +20,7 @@ public class PowerUp implements GameObject{
     private GameObjectHandler gameObjectHandler;
 
     public PowerUp(Player player, GameObjectHandler gameObjectHandler) {
-        pickup = new Sound("resources/sounds/powerup.wav");
+        pickup = new Sound("/resources/sounds/powerup.wav");
         this.player = player;
         this.gameObjectHandler = gameObjectHandler;
         dead = false;

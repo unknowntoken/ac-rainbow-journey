@@ -25,10 +25,9 @@ public class Game implements GameObjectHandler {
 
     private Text framesLeft;
 
-    private static final long LEVEL_GOAL_0 = 10000L;
+    private static final long LEVEL_GOAL_0 = 3000L;
     private Sound winJingle;
     private Sound winMusic;
-    private static final long LEVEL_GOAL_0 = 30000L;
 
 
     private LinkedList<GameObject> gameObjects;
@@ -56,7 +55,7 @@ public class Game implements GameObjectHandler {
 
         bk = new ScrollingImage(PADDING, PADDING, "resources/testlongbackground.png");
 
-        Picture start = new Picture(PADDING, PADDING, "resources/images/capa.png");
+        Picture start = new Picture(PADDING, PADDING, "resources/images/capa1.png");
         start.draw();
         try {
             Thread.sleep(3000);
