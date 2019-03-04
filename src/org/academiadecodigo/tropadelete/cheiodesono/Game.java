@@ -26,6 +26,9 @@ public class Game implements GameObjectHandler {
     private Text framesLeft;
 
     private static final long LEVEL_GOAL_0 = 10000L;
+    private Sound winJingle;
+    private Sound winMusic;
+    private static final long LEVEL_GOAL_0 = 30000L;
 
 
     private LinkedList<GameObject> gameObjects;
@@ -38,6 +41,8 @@ public class Game implements GameObjectHandler {
     private ScrollingImage bk;
 
     private void init() {
+        winJingle = new Sound("/resources/sounds/winning.wav");
+        winMusic = new Sound("/resources/sounds/success.wav");
         gameOver = new Sound("/resources/sounds/gameover.wav");
         gameOverBackgroundMusic = new Sound("/resources/sounds/gameOverBackgroundMusic.wav");
         backgroundMusic1 = new Sound("/resources/sounds/background.wav");
@@ -131,6 +136,9 @@ public class Game implements GameObjectHandler {
     private void winGame() {
         Picture endGame = new Picture(PADDING, PADDING, "resources/images/2.png");
         endGame.draw();
+        winJingle.play(true);
+        winMusic.play(true);
+        winMusic.setLoop(1000);
     }
 
     private boolean gameOver() {

@@ -2,6 +2,7 @@ package org.academiadecodigo.tropadelete.cheiodesono.gameobjects;
 
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.Collision;
+import org.academiadecodigo.tropadelete.cheiodesono.Sound;
 
 public class PowerUp implements GameObject{
 
@@ -14,10 +15,12 @@ public class PowerUp implements GameObject{
     private static final int START_X = 700;
     private static final int START_Y = 500;
     private static final int HEALTH_POINTS = 1;
+    private Sound pickup;
 
     private GameObjectHandler gameObjectHandler;
 
     public PowerUp(Player player, GameObjectHandler gameObjectHandler) {
+        pickup = new Sound("resources/sounds/powerup.wav");
         this.player = player;
         this.gameObjectHandler = gameObjectHandler;
         dead = false;
@@ -45,6 +48,7 @@ public class PowerUp implements GameObject{
 
         }
         if (hitPlayer()){
+            pickup.play(true);
             player.addHealth(HEALTH_POINTS);
             picture.delete();
             picture = new Picture(picture.getX(), picture.getY()-100, "resources/images/powerup.png");
