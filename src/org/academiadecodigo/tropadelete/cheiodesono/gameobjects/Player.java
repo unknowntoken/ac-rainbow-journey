@@ -25,8 +25,6 @@ public class Player implements GameObject {
     private int spriteCounter;
 
     private Rectangle[] healthPlayer;
-    private boolean movingLeft;
-    private boolean movingRight;
 
 
     public Player() {
@@ -35,8 +33,6 @@ public class Player implements GameObject {
         health = MAX_HEALTH;
         jumping = false;
         spriteCounter = 0;
-        movingLeft = false;
-        movingRight = false;
         jumpSound = new Sound("/resources/sounds/jump.wav");
         footSteps = new Sound("/resources/sounds/footstep.wav");
         ouch = new Sound("/resources/sounds/gettinghit.wav");
@@ -114,12 +110,6 @@ public class Player implements GameObject {
 
 
     public void update() {
-        if (movingRight){
-            moveRightInBounds();
-        }
-        if (movingLeft){
-            moveLeftInBounds();
-        }
         if (spriteCounter++ > 1000) {
             sprites.nextSprite();
             spriteCounter = 0;
@@ -164,7 +154,7 @@ public class Player implements GameObject {
         if (Game.isOutOfBoundsLeft(sprites.getX() - 1)) {
             return;
         }
-        sprites.translate(-1, 0);
+        sprites.translate(-25, 0);
         sprites.update();
     }
     public void moveRightInBounds (){
@@ -174,21 +164,20 @@ public class Player implements GameObject {
         if (Game.isOutOfBoundsRight(total)){
             return;
         }
-        sprites.translate(1, 0);
+        sprites.translate(25, 0);
         sprites.update();
     }
-    public void releaseMove (){
-        movingRight = false;
-        movingLeft = false;
-    }
+
     public void moveLeft() {
-        movingRight = false;
-        movingLeft = true;
+        moveLeftInBounds();
+        //movingRight = false;
+        //movingLeft = true;
     }
 
     public void moveRight() {
-        movingRight = true;
-        movingLeft = false;
+        moveRightInBounds();
+        //movingRight = true;
+        //movingLeft = false;
     }
 
     public void releaseJump() {

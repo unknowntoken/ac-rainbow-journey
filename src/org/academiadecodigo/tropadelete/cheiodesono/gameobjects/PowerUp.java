@@ -13,7 +13,7 @@ public class PowerUp implements GameObject{
     private boolean show;
     private int deadCounter;
     private static final int START_X = 700;
-    private static final int START_Y = 500;
+    private static final int START_Y = 540;
     private static final int HEALTH_POINTS = 1;
     private Sound pickup;
 

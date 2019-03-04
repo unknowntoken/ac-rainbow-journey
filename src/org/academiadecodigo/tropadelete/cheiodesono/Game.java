@@ -1,12 +1,10 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
-import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.*;
 
-import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 
 public class Game implements GameObjectHandler {
@@ -133,6 +131,7 @@ public class Game implements GameObjectHandler {
     }
 
     private void winGame() {
+        backgroundMusic1.stop();
         Picture endGame = new Picture(PADDING, PADDING, "resources/images/2.png");
         endGame.draw();
         winJingle.play(true);
