@@ -76,7 +76,8 @@ public class Game implements GameObjectHandler {
         backgroundImage.draw();
         backgroundCity.draw();
 
-        movingBackground = new Picture(100, 0, "resources/images/clouds.jpg");
+        movingBackground = new Picture(0, 0, "resources/images/clouds.jpeg");
+
         movingBackground.draw();
 
         player = new Player();
@@ -96,7 +97,7 @@ public class Game implements GameObjectHandler {
 
         framesLeft = new Text(730,40,"");
         while (!gameOver()) {
-        movingBackground.translate(-1,0);
+        movingBackground.translate(-.1,0);
         movingBackground.draw();
             framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
             framesLeft.draw();
