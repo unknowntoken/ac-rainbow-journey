@@ -55,6 +55,8 @@ public class Game implements GameObjectHandler {
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa1.png");
         start.draw();
+
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
