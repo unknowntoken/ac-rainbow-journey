@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 public class Player implements GameObject {
     private static final int JUMP_HEIGHT = 200;
-    private static final int MAX_HEALTH = 10;
+    private static final int MAX_HEALTH = 8;
 
     private int health;
     private boolean jumping;
