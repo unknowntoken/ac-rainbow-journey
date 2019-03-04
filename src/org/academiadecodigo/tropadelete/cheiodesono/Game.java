@@ -2,12 +2,16 @@ package org.academiadecodigo.tropadelete.cheiodesono;
 
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.graphics.Text;
+import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
+import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
 import org.academiadecodigo.simplegraphics.pictures.Picture;
 import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.*;
 
 import java.util.LinkedList;
 
-public class Game implements GameObjectHandler {
+public class Game implements GameObjectHandler, KeyboardHandler {
 
     private Rectangle rectangle;
 
@@ -50,18 +54,25 @@ public class Game implements GameObjectHandler {
         frameCounter = 0;
         newObstacleTrigger = 300;
         rectangle = new Rectangle(PADDING, PADDING, WIDTH, HEIGHT);
+        Keyboard keyboard = new Keyboard(this);
+        KeyboardEvent enter = new KeyboardEvent();
+        enter.setKey(KeyboardEvent.KEY_I);
+        enter.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
+        keyboard.addEventListener(enter);
 
 
 
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa1.png");
         start.draw();
-
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (!gameStarted){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+
         start.delete();
 
 
@@ -213,5 +224,20 @@ public class Game implements GameObjectHandler {
     @Override
     public void remove(GameObject gameObject) {
         toRemove.add(gameObject);
+    }
+
+    @Override
+    public void keyPressed(KeyboardEvent keyboardEvent) {
+
+        if(keyboardEvent.getKey() == KeyboardEvent.KEY_I){
+            gameStarted = true;
+        }
+
+
+    }
+
+    @Override
+    public void keyReleased(KeyboardEvent keyboardEvent) {
+
     }
 }
