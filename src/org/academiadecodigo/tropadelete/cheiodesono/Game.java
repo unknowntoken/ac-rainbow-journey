@@ -12,7 +12,7 @@ public class Game implements GameObjectHandler {
     private Rectangle rectangle;
 
     private Player player;
-    private static final int PADDING = 10;
+    private static final int PADDING = 0;
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
     private static final int MAX_MOVE_RIGHT = 200;
@@ -23,9 +23,10 @@ public class Game implements GameObjectHandler {
 
     private Text framesLeft;
 
-    private static final long LEVEL_GOAL_0 = 3000L;
+    private static final long LEVEL_GOAL_0 = 5000L;
     private Sound winJingle;
     private Sound winMusic;
+    private boolean gameStarted;
 
 
     private LinkedList<GameObject> gameObjects;
@@ -35,9 +36,10 @@ public class Game implements GameObjectHandler {
 
     private long frameCounter;
     private long currentLevelGoal;
-    private ScrollingImage bk;
+    private Picture movingBackground;
 
     private void init() {
+        gameStarted = false;
         winJingle = new Sound("/resources/sounds/winning.wav");
         winMusic = new Sound("/resources/sounds/success.wav");
         gameOver = new Sound("/resources/sounds/gameover.wav");
@@ -51,10 +53,10 @@ public class Game implements GameObjectHandler {
 
 
 
-        bk = new ScrollingImage(PADDING, PADDING, "resources/testlongbackground.png");
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa1.png");
         start.draw();
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -66,6 +68,7 @@ public class Game implements GameObjectHandler {
         //rectangle = new Rectangle(PADDING,PADDING, WIDTH, HEIGHT);
 
         Picture backgroundImage = new Picture(PADDING, PADDING, "resources/background.png");
+
         Picture backgroundCity = new Picture(PADDING, PADDING, "resources/pavement.png");
         new Picture(PADDING, PADDING, "resources/tracejado1.png");
         new Picture(PADDING, PADDING, "resources/tracejado2.png");
@@ -73,6 +76,8 @@ public class Game implements GameObjectHandler {
         backgroundImage.draw();
         backgroundCity.draw();
 
+        movingBackground = new Picture(PADDING, PADDING, "resources/testlongbackground.png");
+        movingBackground.draw();
 
         player = new Player();
         new KeyboardListener(player);
@@ -91,6 +96,8 @@ public class Game implements GameObjectHandler {
 
         framesLeft = new Text(730,40,"");
         while (!gameOver()) {
+        movingBackground.translate(-1,0);
+        movingBackground.draw();
             framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
             framesLeft.draw();
             //System.out.println("Frame number:" + frameCounter);
@@ -200,7 +207,7 @@ public class Game implements GameObjectHandler {
     }
 
     public static boolean isOutOfBoundsLeft(int x) {
-        return x < PADDING;
+        return x < 50;
     }
 
     @Override
