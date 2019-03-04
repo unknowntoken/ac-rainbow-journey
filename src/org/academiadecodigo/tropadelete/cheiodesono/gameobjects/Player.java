@@ -69,7 +69,7 @@ public class Player implements GameObject {
 
     private void initHealthBar() {
         healthPlayer = new Rectangle[health];
-        Picture healthPicture = new Picture(30, 50, "resources/health.png");
+        Picture healthPicture = new Picture(30, 50, "resources/cerebro.png");
         healthPicture.draw();
 
         healthPlayer[0] = new Rectangle(30, 30, 20, 20);
