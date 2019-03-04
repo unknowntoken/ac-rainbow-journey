@@ -193,10 +193,17 @@ public class Game implements GameObjectHandler, KeyboardHandler {
                 gameObjects.add(tempObject);
                 tempObject.show();
             }
-
         }
     }
 
+    private long spriteTrigger = 200;
+    private void handleNewSprites (){
+        if (frameCounter % spriteTrigger == 0){
+
+
+        }
+
+    }
     private boolean validSpawnLocation(GameObject spawn) {
         //Check if spawn collides with any gameobject then return not valid spawn location.
 
