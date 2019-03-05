@@ -219,7 +219,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
     private void manageNewObjects() {
         if (frameCounter % newObstacleTrigger == 0) {
             //System.out.println("Showing new obstacle");
-            newObstacleTrigger = 100 + (int) (Math.random() * 500);
+            newObstacleTrigger = 200 + (int) (Math.random() * 500);
 
             GameObject tempObject;
             if (Math.random() <= .80) {
