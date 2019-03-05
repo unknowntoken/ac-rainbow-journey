@@ -1,5 +1,6 @@
 package org.academiadecodigo.tropadelete.cheiodesono;
 
+import org.academiadecodigo.simplegraphics.graphics.Canvas;
 import org.academiadecodigo.simplegraphics.graphics.Rectangle;
 import org.academiadecodigo.simplegraphics.graphics.Text;
 import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
@@ -65,36 +66,9 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         enter.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(enter);
 
-        sun = new Sprite(10);
-        sun.addFrame(new Picture(0,0,"resources/sun/0.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/1.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/2.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/3.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/4.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/5.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/6.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/7.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/8.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/9.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/10.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/11.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/12.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/13.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/14.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/15.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/16.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/17.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/18.png"));
-        sun.addFrame(new Picture(0,0,"resources/sun/19.png"));
-        sun.grow(-30,-30);
-        sun.translate(580,20);
-
-        sun.show();
-
-
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa1.png");
         start.draw();
-        while (!gameStarted){
+        while (!gameStarted) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
@@ -117,16 +91,40 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         //backgroundCity.draw();
 
         movingBackground = new ParallaxImageSet();
-        movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/clouds.jpeg"),5,-.1));
-        movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/background1.png"),3,-.5));
-        movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/background2.png"),1,-.5));
+        movingBackground.add(new ParallaxImage(new Picture(0, 0, "resources/images/clouds.jpeg"), 5, -.1));
+        movingBackground.add(new ParallaxImage(new Picture(0, 0, "resources/images/background1.png"), 3, -.5));
+        movingBackground.add(new ParallaxImage(new Picture(0, 0, "resources/images/background2.png"), 1, -.5));
         movingBackground.showAll();
         player = new Player();
         new KeyboardListener(player);
         gameObjects = new LinkedList<>();
         gameObjects.add(player);
         //gameObjects.add(new Obstacle(player, this));
+        sun = new Sprite(10);
+        sun.addFrame(new Picture(0, 0, "resources/sun/0.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/1.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/2.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/3.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/4.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/5.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/6.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/7.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/8.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/9.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/10.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/11.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/12.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/13.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/14.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/15.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/16.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/17.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/18.png"));
+        sun.addFrame(new Picture(0, 0, "resources/sun/19.png"));
+        sun.grow(-30, -30);
+        sun.translate(580, 20);
 
+        sun.show();
 
     }
 
@@ -134,14 +132,15 @@ public class Game implements GameObjectHandler, KeyboardHandler {
     void start() {
         init();
         currentLevelGoal = LEVEL_GOAL_0;
-        new Text(710,20,"Time left").draw();
+        new Text(710, 20, "Time left").draw();
 
-        framesLeft = new Text(730,40,"");
+        framesLeft = new Text(730, 40, "");
 
         double x = -.1d;
         while (!gameOver()) {
+
             movingBackground.update();
-            framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
+            framesLeft.setText(String.valueOf(currentLevelGoal - frameCounter));
             framesLeft.draw();
             //System.out.println("Frame number:" + frameCounter);
             //bk.drawFrom((int) frameCounter);
@@ -150,12 +149,11 @@ public class Game implements GameObjectHandler, KeyboardHandler {
             manageNewObjects();
             //handleNewSprites ();
 
-            if (frameCounter %800 ==0){
+            if (frameCounter % 800 == 0) {
                 x *= -1;
             }
-            sun.translate(x,0);
+            sun.translate(x, 0);
             sun.update();
-
 
 
             for (GameObject gameObject : gameObjects) {
@@ -239,11 +237,12 @@ public class Game implements GameObjectHandler, KeyboardHandler {
     }
 
     private long spriteTrigger = 500;
-    private void handleNewSprites (){
+
+    private void handleNewSprites() {
         TimedSprite tempObject;
-        if (frameCounter % spriteTrigger == 0){
-            tempObject =  new TimedSprite(4,4,-1);
-            tempObject.addFrame(new Picture(600,200,"resources/objects/streetLight.png"));
+        if (frameCounter % spriteTrigger == 0) {
+            tempObject = new TimedSprite(4, 4, -1);
+            tempObject.addFrame(new Picture(600, 200, "resources/objects/streetLight.png"));
             //tempObject.addFrame(new Picture(600,400,"resources/homes/home12.png"));
             System.out.println("new sprite");
             //timedSprites.add(tempObject);
@@ -253,6 +252,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         }
 
     }
+
     private boolean validSpawnLocation(GameObject spawn) {
         //Check if spawn collides with any gameobject then return not valid spawn location.
 
@@ -290,7 +290,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
 
-        if(keyboardEvent.getKey() == KeyboardEvent.KEY_I){
+        if (keyboardEvent.getKey() == KeyboardEvent.KEY_I) {
             gameStarted = true;
         }
 
