@@ -29,7 +29,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
 
     private Text framesLeft;
 
-    private static final long LEVEL_GOAL_0 = 10000L;
+    private static final long LEVEL_GOAL_0 = 15000L;
     private Sound winJingle;
     private Sound winMusic;
     private boolean gameStarted;
@@ -70,7 +70,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         start.draw();
         while (!gameStarted) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(300);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
