@@ -9,7 +9,7 @@ import org.academiadecodigo.tropadelete.cheiodesono.gameobjects.Player;
 import static org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent.*;
 
 public class KeyboardListener implements KeyboardHandler {
-    private int[] keyEventsPressed = {KEY_W, KEY_A, KEY_S, KEY_D, KEY_SPACE,KEY_H,KEY_L};
+    private int[] keyEventsPressed = {KEY_W, KEY_A, KEY_S, KEY_D, KEY_K,KEY_H,KEY_L};
 
     private Player player;
 
@@ -37,7 +37,7 @@ public class KeyboardListener implements KeyboardHandler {
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
         switch (keyboardEvent.getKey()) {
-            case KeyboardEvent.KEY_SPACE:
+            case KeyboardEvent.KEY_K:
                 player.jump();
                 break;
             case KEY_H:
@@ -52,7 +52,7 @@ public class KeyboardListener implements KeyboardHandler {
     @Override
     public void keyReleased(KeyboardEvent keyboardEvent) {
         switch (keyboardEvent.getKey()) {
-            case KEY_SPACE:
+            case KEY_K:
                 player.releaseJump();
                 break;
             case KEY_A:

@@ -222,7 +222,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
             newObstacleTrigger = 100 + (int) (Math.random() * 500);
 
             GameObject tempObject;
-            if (Math.random() <= .90) {
+            if (Math.random() <= .80) {
                 tempObject = new Obstacle(player, this);
 
             } else {
