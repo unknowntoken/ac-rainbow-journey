@@ -41,9 +41,14 @@ public class Sprite implements GameObject{
         }
     }
 
-    public void translate(int x, int y) {
+    public void translate(double x, double y) {
         if (!pictures.isEmpty()) {
             pictures.get(index).translate(x, y);
+        }
+    }
+    public void grow (double x, double y){
+        for (Picture picture : pictures) {
+            picture.grow(x,y);
         }
     }
     public void show (){

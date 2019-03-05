@@ -37,6 +37,7 @@ public class Game implements GameObjectHandler, KeyboardHandler {
     private LinkedList<GameObject> gameObjects;
     private LinkedList<GameObject> toRemove = new LinkedList<>();
     private LinkedList<TimedSprite> timedSprites = new LinkedList<>();
+    private Sprite sun;
 
     private int newObstacleTrigger; //FrameCounter % newObstacleTrigger == 0 means show another obstacle
 
@@ -64,7 +65,31 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         enter.setKeyboardEventType(KeyboardEventType.KEY_PRESSED);
         keyboard.addEventListener(enter);
 
+        sun = new Sprite(10);
+        sun.addFrame(new Picture(0,0,"resources/sun/0.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/1.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/2.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/3.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/4.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/5.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/6.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/7.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/8.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/9.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/10.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/11.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/12.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/13.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/14.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/15.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/16.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/17.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/18.png"));
+        sun.addFrame(new Picture(0,0,"resources/sun/19.png"));
+        sun.grow(-30,-30);
+        sun.translate(580,20);
 
+        sun.show();
 
 
         Picture start = new Picture(PADDING, PADDING, "resources/images/capa1.png");
@@ -96,7 +121,6 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/background1.png"),3,-.5));
         movingBackground.add(new ParallaxImage( new Picture(0,0,"resources/images/background2.png"),1,-.5));
         movingBackground.showAll();
-
         player = new Player();
         new KeyboardListener(player);
         gameObjects = new LinkedList<>();
@@ -113,6 +137,8 @@ public class Game implements GameObjectHandler, KeyboardHandler {
         new Text(710,20,"Time left").draw();
 
         framesLeft = new Text(730,40,"");
+
+        double x = -.1d;
         while (!gameOver()) {
             movingBackground.update();
             framesLeft.setText(String.valueOf(currentLevelGoal-frameCounter));
@@ -122,7 +148,15 @@ public class Game implements GameObjectHandler, KeyboardHandler {
             frameCounter++;
             player.update();
             manageNewObjects();
-            handleNewSprites ();
+            //handleNewSprites ();
+
+            if (frameCounter %800 ==0){
+                x *= -1;
+            }
+            sun.translate(x,0);
+            sun.update();
+
+
 
             for (GameObject gameObject : gameObjects) {
                 gameObject.update();
